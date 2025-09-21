@@ -28,18 +28,18 @@ const HeroSection = () => {
                     <Slide direction="up" delay={600} triggerOnce>
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <Link
-                                to="/news"
+                                to="/julyGallery"
                                 className="px-6 py-3 rounded-lg bg-yellow-400 text-black font-semibold shadow-lg 
                           hover:bg-yellow-300 transform hover:scale-105 transition"
                             >
-                                সর্বশেষ খবর দেখুন
+                                জুলাই গ্যালারি দেখুন
                             </Link>
                             <Link
-                                to="/about"
+                                to="/history"
                                 className="px-6 py-3 rounded-lg border-2 border-white font-semibold 
                           hover:bg-white hover:text-green-700 transform hover:scale-105 transition"
                             >
-                                আমাদের সম্পর্কে জানুন
+                                জুলাই বিপ্লব সম্পর্কে জানুন
                             </Link>
                         </div>
                     </Slide>
