@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -9,6 +8,7 @@ const Footer = () => {
 
                 {/* Logo & About */}
                 <div>
+                    <img className="w-12 my-2" src="/icons/g.png" alt="2.0" />
                     <h1 className="text-2xl font-extrabold mb-3">স্বাধীন বাংলা ২.০</h1>
                     <p className="opacity-80 text-sm leading-relaxed">
                         ডিজিটাল প্রজন্মের জন্য বাংলার কণ্ঠস্বর। খবর, ব্লগ, আর্টিকেল
@@ -24,13 +24,10 @@ const Footer = () => {
                             <Link to="/" className="hover:text-yellow-300 transition">হোম</Link>
                         </li>
                         <li>
-                            <Link to="/news" className="hover:text-yellow-300 transition">খবর</Link>
+                            <Link to="/history" className="hover:text-yellow-300 transition">ইতিহাস</Link>
                         </li>
                         <li>
-                            <Link to="/blog" className="hover:text-yellow-300 transition">ব্লগ</Link>
-                        </li>
-                        <li>
-                            <Link to="/about" className="hover:text-yellow-300 transition">আমাদের সম্পর্কে</Link>
+                            <Link to="/shohid" className="hover:text-yellow-300 transition">শহীদ</Link>
                         </li>
                         <li>
                             <Link to="/contact" className="hover:text-yellow-300 transition">যোগাযোগ</Link>

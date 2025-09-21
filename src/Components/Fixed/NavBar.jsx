@@ -9,9 +9,9 @@ const NavBar = () => {
 
     const navLinks = [
         { to: "/", label: "হোম", icon: <FiHome className="inline-block mr-1" /> },
-        { to: "/news", label: "খবর", icon: <MdArticle className="inline-block mr-1" /> },
+        { to: "/history", label: "ইতিহাস", icon: <MdArticle className="inline-block mr-1" /> },
+        { to: "/shohid", label: "জুলাই শহীদ", icon: <FiInfo className="inline-block mr-1" /> },
         { to: "/blog", label: "ব্লগ", icon: <FiBookOpen className="inline-block mr-1" /> },
-        { to: "/about", label: "পরিচিতি", icon: <FiInfo className="inline-block mr-1" /> },
         { to: "/contact", label: "যোগাযোগ", icon: <FiMail className="inline-block mr-1" /> },
     ];
 
