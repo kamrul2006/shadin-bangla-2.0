@@ -1,9 +1,13 @@
 import React from 'react'
+import HeroSection from '../Components/Other/Home/HeroSection'
+import MediaSection from '../Components/Other/Home/MediaSection'
 
 const HomePageLayOut = () => {
     return (
         <div>
-            Home page
+            <HeroSection />
+
+            <MediaSection />
 
         </div>
     )
