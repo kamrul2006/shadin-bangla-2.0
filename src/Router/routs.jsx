@@ -4,6 +4,8 @@ import HomePageLayOut from "../Layouts/HomePageLayOut";
 import ErrorPage from "../Components/Fixed/ErrorPage";
 import BlogPageLayOut from "../Layouts/BlogPageLayOut";
 import HistoryPageLayOuts from "../Layouts/HistoryPageLayOuts";
+import SohidPageLayOut from "../Layouts/SohidPageLayOut";
+import JulyGalleryLayouts from "../Layouts/JulyGalleryLayouts";
 
 
 export const router = createBrowserRouter([
@@ -24,6 +26,14 @@ export const router = createBrowserRouter([
                 path: '/history',
                 element: <HistoryPageLayOuts />
             },
+
+            {
+                path: '/shohid',
+                element: <SohidPageLayOut />
+            },
+            {
+                path: '/julyGallery',
+                element: <JulyGalleryLayouts />
+            },
         ]
-    },
-]);
+    }]);

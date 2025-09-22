@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
+import { BiPhotoAlbum } from "react-icons/bi";
 import { FiMenu, FiX, FiHome, FiBookOpen, FiInfo, FiMail } from "react-icons/fi";
 import { MdArticle } from "react-icons/md";
 import { Link } from "react-router";
@@ -12,6 +13,7 @@ const NavBar = () => {
         { to: "/history", label: "ইতিহাস", icon: <MdArticle className="inline-block mr-1" /> },
         { to: "/shohid", label: "জুলাই শহীদ", icon: <FiInfo className="inline-block mr-1" /> },
         { to: "/blog", label: "ব্লগ", icon: <FiBookOpen className="inline-block mr-1" /> },
+        { to: "/julyGallery", label: "জুলাই গ্যালারি", icon: <BiPhotoAlbum className="inline-block mr-1" /> },
         { to: "/contact", label: "যোগাযোগ", icon: <FiMail className="inline-block mr-1" /> },
     ];
 
