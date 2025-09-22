@@ -88,16 +88,6 @@ const JulyGalleryGrid = () => {
                                             <p className="text-sm text-gray-200 mt-1">
                                                 {item.shortDis}
                                             </p>
-
-                                            {/* ---------- Tag (type) ---------- */}
-                                            <span
-                                                className={`mt-2 inline-block px-3 py-1 text-xs font-semibold rounded-full ${item.type === "julyPhoto"
-                                                    ? "bg-red-600 text-white"
-                                                    : "bg-green-600 text-white"
-                                                    }`}
-                                            >
-                                                {item.type}
-                                            </span>
                                         </div>
                                     </div>
                                 </Fade>
