@@ -1,34 +1,46 @@
-import React from 'react'
-import { Slide } from 'react-awesome-reveal'
-import { Link } from 'react-router'
+import React from "react";
+import { Slide, Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 const ShohidBanner = () => {
     return (
         <div
-            className="relative py-20 md:py-10 bg-cover bg-center bg-no-repeat h-96 flex items-center px-6 bg-white text-black border-b-4 border-red-800 pt-30"
+            className="relative bg-cover bg-center bg-no-repeat min-h-[70vh] flex items-center px-6 text-white"
             style={{ backgroundImage: "url('/backgrounds/bannerBg.png')" }}
         >
-            <div className='max-w-xl pt-10'>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
 
-                <h1 className='text-5xl font-semibold my-5'>শহীদের স্মরনে শহীদের স্মৃতিতে</h1>
+            {/* Content */}
+            <div className="relative z-10 max-w-2xl pt-10">
+                <Fade direction="down" triggerOnce>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight drop-shadow-md">
+                        শহীদের স্মরণে  শহীদের স্মৃতিতে
+                    </h1>
+                </Fade>
 
-                <p className='bg-white/20 backdrop-blur rounded-4xl p-2'>
-                    স্বাধীনতা অর্জনের চেয়ে স্বাধীনতা রক্ষা করা কঠিন। তাই স্বাধীনতা রক্ষায় জাতিকে থাকতে হয় সদা জাগ্রত। জুলাই আন্দোলনে শহীদদের তালিকা। মনে করিয়ে দেয় তাদের কথা। জাতি তুমাদের ভুলবে না।
-                </p>
+                <Fade direction="up" delay={300} triggerOnce>
+                    <p className="mt-4 bg-white/10 backdrop-blur-md rounded-xl p-4 text-sm sm:text-base md:text-lg leading-relaxed shadow-lg">
+                        স্বাধীনতা অর্জনের চেয়ে স্বাধীনতা রক্ষা করা কঠিন। তাই স্বাধীনতা
+                        রক্ষায় জাতিকে থাকতে হয় সদা জাগ্রত। জুলাই আন্দোলনে শহীদদের তালিকা
+                        মনে করিয়ে দেয় তাদের কথা। জাতি তুমাদের ভুলবে না।
+                    </p>
+                </Fade>
 
                 <Slide direction="up" delay={600} triggerOnce>
-                    <div className="mt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <div className="mt-6 flex flex-col sm:flex-row gap-4">
                         <Link
                             to="/julyGallery"
-                            className="text-white px-3 py-1 rounded-lg bg-red-600  font-semibold shadow-lg 
-                                          hover:bg-red-800 transform hover:scale-105 transition"
+                            className="px-5 py-3 rounded-lg bg-red-600 text-white font-semibold shadow-lg 
+                        hover:bg-red-800 hover:scale-105 transform transition duration-300 text-center"
                         >
                             জুলাই গ্যালারি দেখুন
                         </Link>
                         <Link
                             to="/history"
-                            className="px-3 py-1 rounded-lg border-2 border-red-700 font-semibold 
-                                          hover:bg-red-700 hover:text-white transform hover:scale-105 transition"
+                            className="px-5 py-3 rounded-lg border-2 border-red-500 font-semibold text-white 
+                        hover:bg-red-600 hover:border-red-600 hover:text-white hover:scale-105 
+                        transform transition duration-300 text-center"
                         >
                             জুলাই বিপ্লব সম্পর্কে জানুন
                         </Link>
@@ -36,7 +48,7 @@ const ShohidBanner = () => {
                 </Slide>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ShohidBanner
+export default ShohidBanner;
