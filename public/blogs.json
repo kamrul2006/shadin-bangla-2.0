@@ -6,7 +6,7 @@
         "author": "রাকিব হাসান",
         "date": "১৫ জুলাই, ২০২৪",
         "category": "আন্দোলন",
-        "img": "/blogs/blog1.jpg"
+        "img": "/media/img363.jpg"
     },
     {
         "id": 2,
@@ -15,7 +15,7 @@
         "author": "মেহজাবিন",
         "date": "২০ জুলাই, ২০২৪",
         "category": "স্মরণ",
-        "img": "/blogs/blog2.jpg"
+        "img": "/media/img362.jpg"
     },
     {
         "id": 3,
@@ -24,6 +24,6 @@
         "author": "তানভীর আহমেদ",
         "date": "২২ জুলাই, ২০২৪",
         "category": "ইতিহাস",
-        "img": "/blogs/blog3.jpg"
+        "img": "/media/img361.jpg"
     }
 ]
