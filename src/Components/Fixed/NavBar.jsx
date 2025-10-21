@@ -26,7 +26,7 @@ const NavBar = () => {
                     <Fade direction="left" triggerOnce>
                         <div className="flex items-center gap-2">
                             <img className="w-10 drop-shadow-md" src="/icons/g.png" alt="২.০" />
-                            <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-wide">
+                            <h1 className="hidden md:block text-xl font-extrabold text-white tracking-wide">
                                 স্বাধীন বাংলা ২.০
                             </h1>
                         </div>

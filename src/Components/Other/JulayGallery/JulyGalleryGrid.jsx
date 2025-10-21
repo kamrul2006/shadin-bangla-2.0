@@ -49,7 +49,7 @@ const JulyGalleryGrid = () => {
                 </aside>
 
                 {/* ---------- Gallery Grid ---------- */}
-                <div className="md:col-span-3">
+                <div className="col-span-1 md:col-span-3">
                     {/* Section Header */}
                     <div className="text-center mb-10">
                         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
