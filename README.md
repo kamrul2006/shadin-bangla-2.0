@@ -118,13 +118,13 @@ Your app will be live at 👉 **[http://localhost:5173](http://localhost:5173)**
 
 ## 💡 Core Features
 
-✨ **Dynamic Home Page** – আন্দোলনের প্রতিচ্ছবি ও সাম্প্রতিক খবর
-🖼️ **Photo & Media Gallery** – জুলাই আন্দোলন, শহীদের ছবি ও গ্রাফি
-📝 **Blog Section** – ইতিহাস, মতামত ও বাস্তব কাহিনি
-🎬 **Animated Hero Sections** – Smooth fade-in & parallax effects
-📱 **Responsive Layout** – Mobile-first design
-⚡ **SPA Navigation** – Lightning-fast transitions
-🎨 **Modern Tailwind UI** – Clean, accessible, and vibrant
+- ✨ **Dynamic Home Page** – আন্দোলনের প্রতিচ্ছবি ও সাম্প্রতিক খবর
+- 🖼️ **Photo & Media Gallery** – জুলাই আন্দোলন, শহীদের ছবি ও গ্রাফি
+- 📝 **Blog Section** – ইতিহাস, মতামত ও বাস্তব কাহিনি
+- 🎬 **Animated Hero Sections** – Smooth fade-in & parallax effects
+- 📱 **Responsive Layout** – Mobile-first design
+- ⚡ **SPA Navigation** – Lightning-fast transitions
+- 🎨 **Modern Tailwind UI** – Clean, accessible, and vibrant
 
 ---
 
@@ -169,9 +169,9 @@ Feel free to use, modify, and distribute with proper attribution.
 
 ## 👨‍🎨 Author
 
-**Created by:** [Kamrul Islam Apurba](https://github.com/kamrul2006)
-📧 **Email:** [kamrulislamapurba@gmail.com](mailto:kamrulislamapurba@gmail.com)
-🌍 **GitHub:** [github.com/kamrul2006](https://github.com/kamrul2006)
+- **Created by:** [Kamrul Islam Apurba](https://github.com/kamrul2006)
+- 📧 **Email:** [kamrulislamapurba@gmail.com](mailto:kamrulislamapurba@gmail.com)
+- 🌍 **GitHub:** [github.com/kamrul2006](https://github.com/kamrul2006)
 
 ---
 
