@@ -1,9 +1,10 @@
 import React from 'react'
+import BlogPage from '../Components/Other/Blogs/BlogPageBanner'
 
 const BlogPageLayOut = () => {
     return (
         <div>
-            gdsgsd
+            <BlogPage />
         </div>
     )
 }
