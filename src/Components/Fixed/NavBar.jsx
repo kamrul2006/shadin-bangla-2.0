@@ -24,12 +24,16 @@ const NavBar = () => {
 
                     {/* Logo + Name */}
                     <Fade direction="left" triggerOnce>
-                        <div className="flex items-center gap-2">
+                        <Link 
+                            to="/" 
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="flex items-center gap-2 hover:opacity-80 transition duration-300"
+                        >
                             <img className="w-10 drop-shadow-md" src="/icons/g.png" alt="২.০" />
                             <h1 className="hidden md:block text-xl font-extrabold text-white tracking-wide">
                                 স্বাধীন বাংলা ২.০
                             </h1>
-                        </div>
+                        </Link>
                     </Fade>
 
                     {/* Desktop Menu */}
