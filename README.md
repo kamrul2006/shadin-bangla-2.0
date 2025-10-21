@@ -1,7 +1,4 @@
 
----
-
-````markdown
 <p align="center">
   <img src="/public/icons/g.png" alt="Shadhin Bangla Logo" width="120" />
 </p>
@@ -38,12 +35,14 @@
 ## 🚀 Project Overview  
 
 **Shadhin Bangla 2.0** is a digital reflection of Bangladesh’s **social and student movements**, where users can explore:
+
 - স্বাধীনতা সংগ্রামের স্মৃতি  
 - জুলাই আন্দোলনের মুহূর্ত  
 - ইতিহাস ও ব্লগ  
 - ছবি, মিডিয়া ও ভিজ্যুয়াল ডকুমেন্টেশন  
 
 🛠️ Built With:  
+
 - ⚛️ **React.js (v19)** + **Vite** for ultra-fast performance  
 - 🎨 **TailwindCSS** + **DaisyUI** for beautiful, responsive UI  
 - 💫 **react-awesome-reveal** for engaging animations  
@@ -93,7 +92,7 @@ shadin-bangla-ui/
 │
 ├─ package.json
 └─ vite.config.js
-````
+```
 
 ---
 
@@ -180,6 +179,3 @@ Feel free to use, modify, and distribute with proper attribution.
   <b>🇧🇩 Shadhin Bangla 2.0 – Voices of the New Generation</b><br>
   <i>“Freedom. History. Innovation.”</i>
 </p>
-```
-
----
