@@ -47,13 +47,13 @@ const HeroSection = () => {
 
                 {/* Right Image */}
                 <div className="flex justify-center md:justify-end">
-                    <Slide direction="right" delay={500} triggerOnce>
+                    <Fade delay={400} duration={2000} triggerOnce>
                         <img
                             src="/graphys/a.png"
                             alt="Bangladesh Graphic"
                             className="w-[300px] md:w-[600px] drop-shadow-2xl hover:scale-105 transition-transform duration-500"
                         />
-                    </Slide>
+                    </Fade>
                 </div>
             </div>
         </section>

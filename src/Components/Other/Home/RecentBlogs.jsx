@@ -74,7 +74,7 @@ const RecentBlogs = () => {
                                             <span>{blog.date || "জুলাই ২০২৪"}</span>
                                         </div>
                                         <Link
-                                            to={`/blog/${blog.id}`}
+                                            to={`/blog`}
                                             className="text-red-600 font-semibold hover:underline flex items-center gap-1 text-sm"
                                         >
                                             পড়ুন <FaArrowRight className="text-xs" />
