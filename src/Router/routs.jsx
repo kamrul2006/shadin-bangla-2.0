@@ -6,6 +6,7 @@ import BlogPageLayOut from "../Layouts/BlogPageLayOut";
 import HistoryPageLayOuts from "../Layouts/HistoryPageLayOuts";
 import SohidPageLayOut from "../Layouts/SohidPageLayOut";
 import JulyGalleryLayouts from "../Layouts/JulyGalleryLayouts";
+import Contact from "../Components/Fixed/Contact";
 
 
 export const router = createBrowserRouter([
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: '/blog',
                 element: <BlogPageLayOut />
+            },
+            {
+                path: '/contact',
+                element: <Contact />
             },
             {
                 path: '/history',
