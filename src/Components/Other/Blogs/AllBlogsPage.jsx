@@ -74,9 +74,9 @@ const AllBlogsPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {filteredBlogs.map((blog, index) => (
                             <Fade delay={index * 50} duration={600} triggerOnce key={blog.id}>
-                                <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
+                                <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col h-full hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
                                     {/*-------------------- Image-------------- */}
-                                    <div className="relative h-52 w-full overflow-hidden">
+                                    <div className="relative h-52 w-full overflow-hidden flex-shrink-0">
                                         <img
                                             src={blog.img}
                                             alt={blog.title}
@@ -88,15 +88,17 @@ const AllBlogsPage = () => {
                                     </div>
 
                                     {/*-------------------- Content---------------- */}
-                                    <div className="p-5 flex flex-col flex-grow">
-                                        <h3 className=" font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition duration-300 pl-0.5 text-lg">
-                                            {blog.title}
-                                        </h3>
-                                        <p className="text-gray-600 text-sm line-clamp-3 mb-4">
-                                            {blog.shortDis}
-                                        </p>
+                                    <div className="p-5 flex flex-col flex-grow justify-between">
+                                        <div>
+                                            <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition duration-300 pl-0.5 text-lg">
+                                                {blog.title}
+                                            </h3>
+                                            <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                                                {blog.shortDis}
+                                            </p>
+                                        </div>
 
-                                        <div className="mt-auto flex items-center justify-between text-gray-500 text-sm">
+                                        <div className="mt-auto flex items-center justify-between text-gray-500 text-sm border-t border-gray-100 pt-3">
                                             <div className="flex items-center gap-2">
                                                 <FaCalendarAlt className="text-red-500" />
                                                 <span>{blog.date || "জুলাই ২০২৪"}</span>
