@@ -1,6 +1,7 @@
 import React from 'react'
 import HeroSection from '../Components/Other/Home/HeroSection'
 import MediaSection from '../Components/Other/Home/MediaSection'
+import RecentBlogs from '../Components/Other/Home/RecentBlogs'
 
 const HomePageLayOut = () => {
     return (
@@ -9,6 +10,7 @@ const HomePageLayOut = () => {
 
             <MediaSection />
 
+            <RecentBlogs />
         </div>
     )
 }
