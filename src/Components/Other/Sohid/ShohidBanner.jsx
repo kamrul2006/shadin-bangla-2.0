@@ -20,7 +20,7 @@ const ShohidBanner = () => {
                 </Fade>
 
                 <Fade direction="up" delay={300} triggerOnce>
-                    <p className="mt-4 bg-white/10 backdrop-blur-md rounded-xl p-4 text-sm sm:text-base md:text-lg leading-relaxed shadow-lg">
+                    <p className="mt-4 border-l-4 border-red-600 p-4 text-sm sm:text-base md:text-lg leading-relaxed ">
                         স্বাধীনতা অর্জনের চেয়ে স্বাধীনতা রক্ষা করা কঠিন। তাই স্বাধীনতা
                         রক্ষায় জাতিকে থাকতে হয় সদা জাগ্রত। জুলাই আন্দোলনে শহীদদের তালিকা
                         মনে করিয়ে দেয় তাদের কথা। জাতি তুমাদের ভুলবে না।
