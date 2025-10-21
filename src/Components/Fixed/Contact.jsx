@@ -4,7 +4,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaFacebook, FaGlobe } from "rea
 
 const Contact = () => {
     return (
-        <section className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-16 px-4 md:px-8 text-black">
+        <section className="min-h-screen bg-gray-50 py-16 px-4 md:px-8 text-black">
             <div className="max-w-6xl mx-auto">
                 {/* Header */}
                 <Fade triggerOnce>
@@ -12,20 +12,23 @@ const Contact = () => {
                         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-3">
                             <span className="text-red-600">যোগাযোগ</span> করুন
                         </h1>
-                        <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
-                            আপনার পরামর্শ, মতামত বা সহযোগিতা আমাদের জন্য মূল্যবান। নিচের মাধ্যমে যোগাযোগ করুন।
+                        <p className="text-gray-700 max-w-2xl mx-auto text-sm sm:text-base">
+                            আপনার পরামর্শ, মতামত বা সহযোগিতা আমাদের জন্য গুরুত্বপূর্ণ। নিচের মাধ্যমে যোগাযোগ করুন।
                         </p>
                     </div>
                 </Fade>
 
                 {/* Main Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
                     {/* Contact Info */}
                     <Slide direction="left" triggerOnce>
-                        <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300">
+                        <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col justify-between h-full">
+
                             <h2 className="text-2xl font-bold mb-6 text-gray-900 border-l-4 border-red-600 pl-3">
                                 যোগাযোগের তথ্য
                             </h2>
+
                             <ul className="space-y-5 text-gray-700">
                                 <li className="flex items-center gap-3">
                                     <FaEnvelope className="text-red-600 text-xl" />
@@ -37,13 +40,13 @@ const Contact = () => {
                                 </li>
                                 <li className="flex items-center gap-3">
                                     <FaMapMarkerAlt className="text-red-600 text-xl" />
-                                    <span>ঢাকা, বাংলাদেশ</span>
+                                    <span>কিশোরগঞ্জ, ঢাকা, বাংলাদেশ</span>
                                 </li>
                             </ul>
 
                             <div className="mt-8 flex gap-4 text-xl">
                                 <a
-                                    href="https://facebook.com/shadinbangla"
+                                    href="https://www.facebook.com/kamrul.islam.apurba1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-gray-700 hover:text-blue-600 transition"
@@ -51,7 +54,7 @@ const Contact = () => {
                                     <FaFacebook />
                                 </a>
                                 <a
-                                    href="https://shadinbangla.org"
+                                    href="https://www.facebook.com/kamrul.islam.apurba1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-gray-700 hover:text-green-600 transition"
@@ -59,16 +62,22 @@ const Contact = () => {
                                     <FaGlobe />
                                 </a>
                             </div>
+
+                            <div>
+                                <img src="/media/1d1.jpeg" alt="1dfa" className="w-full h-[150px] object-cover rounded-2xl border-2 border-white ring-2 ring-red-500" />
+                            </div>
+
+
                         </div>
                     </Slide>
 
                     {/* Contact Form */}
                     <Fade triggerOnce>
                         <form
-                            className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300 space-y-5"
+                            className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300 space-y-5 flex flex-col justify-between h-full"
                             onSubmit={(e) => {
                                 e.preventDefault();
-                                alert("Thanks for reaching out! We'll get back to you soon.");
+                                alert("ধন্যবাদ! আমরা শীঘ্রই আপনার সঙ্গে যোগাযোগ করব।");
                             }}
                         >
                             <h2 className="text-2xl font-bold mb-6 text-gray-900 border-l-4 border-red-600 pl-3">
@@ -107,7 +116,7 @@ const Contact = () => {
 
                             <button
                                 type="submit"
-                                className="w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transform hover:scale-[1.02] transition duration-300"
+                                className="w-full bg-red-600 text-white font-semibold py-3 rounded-lg hover:bg-red-700 transform hover:scale-[1.02] transition duration-300"
                             >
                                 পাঠান
                             </button>
@@ -115,15 +124,15 @@ const Contact = () => {
                     </Fade>
                 </div>
 
-                {/* Map / Footer */}
+                {/* Map */}
                 <Fade direction="up" triggerOnce>
-                    <div className="mt-16 text-center">
+                    <div className="mt-16 text-center rounded-2xl overflow-hidden shadow-md">
                         <iframe
                             title="Google Map"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9027152829194!2d90.39196361536608!3d23.75087649471383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b41f91d6e5%3A0xf9de44bfa693c9b1!2sDhaka!5e0!3m2!1sen!2sbd!4v1702561707483"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.9027152829194!2d90.39196361536608!3d23.75087649471383!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8b41f91d6e5%3A0xf9de44bfa693c9b1!2sKishoreganj!5e0!3m2!1sen!2sbd!4v1702561707483"
                             width="100%"
                             height="350"
-                            className="rounded-2xl border-0 shadow-md"
+                            className="rounded-2xl border-0"
                             allowFullScreen=""
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
