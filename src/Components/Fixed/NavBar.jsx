@@ -8,6 +8,10 @@ import { Link } from "react-router";
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const handleNavClick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     const navLinks = [
         { to: "/", label: "হোম", icon: <FiHome className="inline-block mr-1" /> },
         { to: "/history", label: "ইতিহাস", icon: <MdArticle className="inline-block mr-1" /> },
@@ -24,12 +28,16 @@ const NavBar = () => {
 
                     {/* Logo + Name */}
                     <Fade direction="left" triggerOnce>
-                        <div className="flex items-center gap-2">
+                        <Link 
+                            to="/" 
+                            onClick={handleNavClick}
+                            className="flex items-center gap-2 hover:opacity-80 transition duration-300"
+                        >
                             <img className="w-10 drop-shadow-md" src="/icons/g.png" alt="২.০" />
                             <h1 className="hidden md:block text-xl font-extrabold text-white tracking-wide">
                                 স্বাধীন বাংলা ২.০
                             </h1>
-                        </div>
+                        </Link>
                     </Fade>
 
                     {/* Desktop Menu */}
@@ -38,6 +46,7 @@ const NavBar = () => {
                             <Slide direction="down" delay={index * 100} triggerOnce key={link.to}>
                                 <Link
                                     to={link.to}
+                                    onClick={handleNavClick}
                                     className="text-white font-medium hover:text-yellow-300 transition duration-300 flex items-center"
                                 >
                                     {link.icon}
@@ -72,7 +81,10 @@ const NavBar = () => {
                                 <Link
                                     key={link.to}
                                     to={link.to}
-                                    onClick={() => setIsOpen(false)}
+                                    onClick={() => {
+                                        setIsOpen(false);
+                                        handleNavClick();
+                                    }}
                                     className="text-gray-700 hover:text-green-600 font-medium transition flex items-center gap-1"
                                 >
                                     {link.icon}
