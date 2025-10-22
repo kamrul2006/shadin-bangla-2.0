@@ -6,11 +6,11 @@ const mediaItems = [
     { id: 1, title: "আবু সাইদ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid.jpg" },
     { id: 2, title: "আব্দুল আহাদ", add: "৪ বছরের শিশু", date: "১৯ জুলাই, ২০২৪", img: "/sohid/sohid1.jpg" },
     { id: 3, title: "রিয়া গোপ", add: "৬ বছরের শিশু", date: "২৪ জুলাই, ২০২৪", img: "/sohid/sohid2.jpg" },
-    { id: 4, title: "আবু সাইদ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid3.jpg" },
+    { id: 4, title: "দীপ্ত দে", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid3.jpg" },
     { id: 5, title: "তাহমিদ তামিম", add: "কাদির মোল্লা হাই স্কুল, নরসিংদী", date: "১৮ জুলাই, ২০২৪", img: "/sohid/sohid6.jpg" },
     { id: 6, title: "মীর মুগ্ধ", add: "বাংলাদেশ ইউনিভার্সিটি অফ প্রফেশনালস", date: "১৮ জুলাই, ২০২৪", img: "/sohid/sohid7.jpg" },
-    { id: 7, title: "আবু সাইদ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid5.jpg" },
-    { id: 8, title: "আবু সাইদ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid4.jpg" },
+    { id: 7, title: "শহিদুজ্জামান তানভিন", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid5.jpg" },
+    { id: 8, title: "আসিফ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid4.jpg" },
 ];
 
 const SohidList = () => {
