@@ -13,6 +13,7 @@ const JulyGalleryBanner = () => {
 
             {/* --------- Content Wrapper --------- */}
             <div className="relative z-10 max-w-6xl w-full grid md:grid-cols-2 gap-10 items-center">
+
                 {/* --------- Left Content --------- */}
                 <div className="text-center md:text-left text-white space-y-6">
                     <Zoom triggerOnce>
@@ -51,13 +52,13 @@ const JulyGalleryBanner = () => {
 
                 {/* --------- Right Graphic --------- */}
                 <div className="flex justify-center md:justify-end mt-8 md:mt-0">
-                    <Slide direction="right" delay={500} triggerOnce>
+                    <Fade delay={500} triggerOnce>
                         <img
                             src="/graphys/graphy1.png"
                             alt="july gallery"
                             className="w-72 sm:w-96 md:w-[420px] drop-shadow-2xl hover:scale-105 transform transition duration-500"
                         />
-                    </Slide>
+                    </Fade>
                 </div>
             </div>
 

@@ -14,7 +14,6 @@ const NavBar = () => {
 
     const navLinks = [
         { to: "/", label: "হোম", icon: <FiHome className="inline-block mr-1" /> },
-        { to: "/history", label: "ইতিহাস", icon: <MdArticle className="inline-block mr-1" /> },
         { to: "/shohid", label: "জুলাই শহীদ", icon: <FiInfo className="inline-block mr-1" /> },
         { to: "/blog", label: "ব্লগ", icon: <FiBookOpen className="inline-block mr-1" /> },
         { to: "/julyGallery", label: "জুলাই গ্যালারি", icon: <BiPhotoAlbum className="inline-block mr-1" /> },
@@ -28,8 +27,8 @@ const NavBar = () => {
 
                     {/* Logo + Name */}
                     <Fade direction="left" triggerOnce>
-                        <Link 
-                            to="/" 
+                        <Link
+                            to="/"
                             onClick={handleNavClick}
                             className="flex items-center gap-2 hover:opacity-80 transition duration-300"
                         >
