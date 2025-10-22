@@ -39,7 +39,7 @@ const JulyGalleryBanner = () => {
                                 শহীদদের সম্পর্কে জানুন
                             </Link>
                             <Link
-                                to="/history"
+                                to="/blog"
                                 className="px-6 py-3 rounded-lg border-2 border-white font-semibold 
                            hover:bg-white hover:text-red-700 hover:scale-110 
                            transform transition duration-300 text-center"

@@ -24,7 +24,7 @@ const Footer = () => {
                             <Link to="/" className="hover:text-yellow-300 transition">হোম</Link>
                         </li>
                         <li>
-                            <Link to="/history" className="hover:text-yellow-300 transition">ইতিহাস</Link>
+                            <Link to="/blog" className="hover:text-yellow-300 transition">ইতিহাস</Link>
                         </li>
                         <li>
                             <Link to="/shohid" className="hover:text-yellow-300 transition">শহীদ</Link>

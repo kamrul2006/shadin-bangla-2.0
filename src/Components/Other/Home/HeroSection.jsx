@@ -35,7 +35,7 @@ const HeroSection = () => {
                                 জুলাই গ্যালারি দেখুন
                             </Link>
                             <Link
-                                to="/history"
+                                to="/blog"
                                 className="px-6 py-3 rounded-lg border-2 border-white font-semibold 
                           hover:bg-white hover:text-green-700 transform hover:scale-105 transition"
                             >

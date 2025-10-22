@@ -37,7 +37,7 @@ const ShohidBanner = () => {
                             জুলাই গ্যালারি দেখুন
                         </Link>
                         <Link
-                            to="/history"
+                            to="/blog"
                             className="px-5 py-3 rounded-lg border-2 border-red-500 font-semibold text-white 
                         hover:bg-red-600 hover:border-red-600 hover:text-white hover:scale-105 
                         transform transition duration-300 text-center"
