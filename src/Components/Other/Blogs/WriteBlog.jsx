@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import Swal from "sweetalert2";
+import {
+    FaUserAlt,
+    FaHeading,
+    FaImage,
+    FaPenFancy,
+    FaTags,
+} from "react-icons/fa";
 
 const WriteBlog = () => {
     const [formData, setFormData] = useState({
         title: "",
         author: "",
         image: "",
+        category: "",
         content: "",
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -16,36 +27,94 @@ const WriteBlog = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("🎉 আপনার ব্লগ সফলভাবে জমা দেওয়া হয়েছে!");
-        console.log("Blog Data:", formData);
 
-        setFormData({
-            title: "",
-            author: "",
-            image: "",
-            content: "",
-        });
+        const blogData = {
+            ...formData,
+            status: "pending",
+            date: new Date().toLocaleDateString("bn-BD"),
+        };
+
+        if (!formData.category) {
+            Swal.fire({
+                icon: "warning",
+                title: "⚠️ বিভাগ নির্বাচন করুন",
+                text: "দয়া করে একটি ক্যাটাগরি নির্বাচন করুন।",
+                confirmButtonColor: "#dc2626",
+            });
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await fetch("http://localhost:5000/Blogs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(blogData),
+            });
+
+            if (response.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "🎉 ধন্যবাদ!",
+                    text: "আপনার ব্লগটি জমা হয়েছে এবং অনুমোদনের অপেক্ষায় আছে।",
+                    confirmButtonColor: "#dc2626",
+                });
+                setFormData({
+                    title: "",
+                    author: "",
+                    image: "",
+                    category: "",
+                    content: "",
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "❌ ত্রুটি!",
+                    text: "কিছু সমস্যা হয়েছে। আবার চেষ্টা করুন।",
+                    confirmButtonColor: "#dc2626",
+                });
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            Swal.fire({
+                icon: "error",
+                title: "⚠️ সংযোগ ব্যর্থ!",
+                text: "সার্ভারের সাথে সংযোগ করা যাচ্ছে না। পরে চেষ্টা করুন।",
+                confirmButtonColor: "#dc2626",
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <section className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="w-full max-w-3xl bg-white/70 backdrop-blur-lg shadow-lg rounded-3xl p-6 sm:p-10 border border-gray-200">
+        <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-gray-100 py-10 px-4">
+            <div className="w-full max-w-3xl bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-10">
                 <Fade triggerOnce>
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-center mb-4 text-gray-900">
-                        <span className="text-red-600">নতুন ব্লগ</span> লিখুন
-                    </h1>
-                    <p className="text-center text-gray-600 mb-8 text-sm sm:text-base">
-                        আপনার ভাবনা, অভিজ্ঞতা বা গল্পটি শেয়ার করুন। নিচের ফর্মটি পূরণ করে আপনার ব্লগ জমা দিন।
-                    </p>
+                    <div className="text-center mb-8">
+                        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">
+                            <span className="text-red-600">নতুন ব্লগ</span> লিখুন ✍️
+                        </h1>
+                        <p className="text-gray-600 text-sm sm:text-base max-w-lg mx-auto">
+                            আপনার চিন্তা, অভিজ্ঞতা ও অনুভূতি অন্যদের সাথে ভাগ করুন। নিচের ফর্মটি পূরণ করুন
+                            এবং আপনার গল্প পৃথিবীর সাথে শেয়ার করুন।
+                        </p>
+                    </div>
                 </Fade>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form
+                    onSubmit={handleSubmit}
+                    className="space-y-6 sm:space-y-7 transition-all"
+                >
                     {/* Blog Title */}
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-gray-700">
-                            ব্লগের শিরোনাম
+                        <label className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-1">
+                            <FaHeading className="text-red-500" /> ব্লগের শিরোনাম
                         </label>
                         <input
                             type="text"
@@ -53,15 +122,15 @@ const WriteBlog = () => {
                             value={formData.title}
                             onChange={handleChange}
                             required
-                            placeholder="আপনার ব্লগের শিরোনাম লিখুন"
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 outline-none transition duration-200 hover:shadow-md"
+                            placeholder="একটি সুন্দর শিরোনাম দিন..."
+                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-400 outline-none transition duration-200 hover:shadow-md"
                         />
                     </div>
 
                     {/* Author */}
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-gray-700">
-                            লেখকের নাম
+                        <label className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-1">
+                            <FaUserAlt className="text-red-500" /> লেখকের নাম
                         </label>
                         <input
                             type="text"
@@ -70,14 +139,38 @@ const WriteBlog = () => {
                             onChange={handleChange}
                             required
                             placeholder="আপনার নাম লিখুন"
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 outline-none transition duration-200 hover:shadow-md"
+                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-400 outline-none transition duration-200 hover:shadow-md"
                         />
+                    </div>
+
+                    {/* Category */}
+                    <div>
+                        <label className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-1">
+                            <FaTags className="text-red-500" /> ক্যাটাগরি নির্বাচন করুন
+                        </label>
+                        <select
+                            name="category"
+                            value={formData.category}
+                            onChange={handleChange}
+                            required
+                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-gray-800 bg-white shadow-sm focus:ring-2 focus:ring-red-400 outline-none transition duration-200 hover:shadow-md"
+                        >
+                            <option value="">-- একটি ক্যাটাগরি নির্বাচন করুন --</option>
+                            <option value="আন্দোলন">আন্দোলন</option>
+                            <option value="শহীদ স্মরণ">শহীদ স্মরণ</option>
+                            <option value="ইতিহাস">ইতিহাস</option>
+                            <option value="সংগ্রাম">সংগ্রাম</option>
+                            <option value="নারীর ভূমিকা">নারীর ভূমিকা</option>
+                            <option value="এক দফা">এক দফা</option>
+                            <option value="পুলিশি হামলা">পুলিশি হামলা</option>
+                            <option value="কুকুরলীগের হামলা">কুকুরলীগের হামলা</option>
+                        </select>
                     </div>
 
                     {/* Image URL */}
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-gray-700">
-                            ছবির লিঙ্ক (ঐচ্ছিক)
+                        <label className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-1">
+                            <FaImage className="text-red-500" /> ছবির লিঙ্ক (ঐচ্ছিক)
                         </label>
                         <input
                             type="url"
@@ -85,14 +178,14 @@ const WriteBlog = () => {
                             value={formData.image}
                             onChange={handleChange}
                             placeholder="যদি থাকে, ব্লগের ছবির লিঙ্ক দিন"
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 outline-none transition duration-200 hover:shadow-md"
+                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-400 outline-none transition duration-200 hover:shadow-md"
                         />
                     </div>
 
                     {/* Blog Content */}
                     <div>
-                        <label className="block text-sm font-medium mb-1 text-gray-700">
-                            ব্লগের মূল লেখা
+                        <label className="flex items-center gap-2 text-gray-700 text-sm font-medium mb-1">
+                            <FaPenFancy className="text-red-500" /> ব্লগের মূল লেখা
                         </label>
                         <textarea
                             name="content"
@@ -100,8 +193,8 @@ const WriteBlog = () => {
                             onChange={handleChange}
                             required
                             rows="8"
-                            placeholder="এখানে আপনার ব্লগ লিখুন..."
-                            className="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-500 outline-none resize-none transition duration-200 hover:shadow-md"
+                            placeholder="এখানে আপনার গল্প, অভিজ্ঞতা বা মতামত লিখুন..."
+                            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 shadow-sm focus:ring-2 focus:ring-red-400 outline-none resize-none transition duration-200 hover:shadow-md"
                         ></textarea>
                     </div>
 
@@ -109,9 +202,13 @@ const WriteBlog = () => {
                     <div className="text-center pt-4">
                         <button
                             type="submit"
-                            className="w-full sm:w-auto bg-red-600 text-white font-semibold px-8 py-3 rounded-xl hover:bg-red-700 transform hover:scale-[1.03] shadow-md hover:shadow-lg transition duration-300"
+                            disabled={loading}
+                            className={`w-full sm:w-auto font-semibold px-8 py-3 rounded-xl transition duration-300 flex items-center justify-center gap-2 mx-auto ${loading
+                                ? "bg-gray-400 cursor-not-allowed text-white"
+                                : "bg-gradient-to-r from-red-500 to-rose-600 text-white hover:scale-[1.03] shadow-md hover:shadow-lg"
+                                }`}
                         >
-                            ব্লগ জমা দিন
+                            {loading ? "⏳ জমা দেওয়া হচ্ছে..." : "📨 ব্লগ জমা দিন"}
                         </button>
                     </div>
                 </form>
