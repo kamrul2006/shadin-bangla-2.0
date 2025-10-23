@@ -14,6 +14,7 @@ import AdminPageLayOut from "../Layouts/AdminPageLayOut";
 import ManageBlogs from "../Components/AdminPage/ManageBlogs";
 import ManageReviews from "../Components/AdminPage/ManageReviews";
 import ManageUsers from "../Components/AdminPage/ManageUsers";
+import ManageShohid from "../Components/AdminPage/ManageShohid";
 
 
 export const router = createBrowserRouter([
@@ -87,6 +88,10 @@ export const router = createBrowserRouter([
             {
                 path: '/manage/manageUsers',
                 element: <ManageUsers />
+            },
+            {
+                path: '/manage/shohidInfo',
+                element: <ManageShohid />
             },
         ]
     }
