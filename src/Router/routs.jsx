@@ -8,6 +8,7 @@ import JulyGalleryLayouts from "../Layouts/JulyGalleryLayouts";
 import Contact from "../Components/Fixed/Contact";
 import WriteBlog from "../Components/Other/Blogs/WriteBlog";
 import BlogDetailsPage from "../Components/Other/Blogs/BlogDetailsPage";
+import LoginPage from "../Auth/Users/Loginpage";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <HomePageLayOut />
             },
+            // --------------blogs page------------------
             {
                 path: '/blog',
                 element: <BlogPageLayOut />
@@ -32,17 +34,28 @@ export const router = createBrowserRouter([
                 path: '/writeBlog',
                 element: <WriteBlog />
             },
+
+            // --------------contact------------------
             {
                 path: '/contact',
                 element: <Contact />
             },
+
+            // -----------shohid page-------------
             {
                 path: '/shohid',
                 element: <SohidPageLayOut />
             },
+
+            // -----------------------july gallery--------------
             {
                 path: '/julyGallery',
                 element: <JulyGalleryLayouts />
             },
         ]
-    }]);
+    },
+    {
+        path: "/login",
+        element: <LoginPage />
+    }
+]);

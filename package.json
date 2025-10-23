@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.12.2",
+    "firebase": "^12.4.0",
     "react": "^19.1.1",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^19.1.1",

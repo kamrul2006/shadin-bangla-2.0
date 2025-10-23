@@ -3,7 +3,6 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { auth } from "../FireBase/firebase.init";
 
 
-
 //----------------the context here------------------
 export const AuthContext = createContext()
 const provider = new GoogleAuthProvider()

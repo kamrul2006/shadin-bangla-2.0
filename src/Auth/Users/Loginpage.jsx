@@ -1,198 +1,206 @@
-import React, { useContext, useEffect, useState } from "react";
-import { FaGoogle, FaFacebook, FaGithub, FaEyeSlash, FaEye, FaHome } from "react-icons/fa";
-import bg from "../../assets/lbg.jpg"
-import ill from "../../assets/logo.png"
-
-// import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import React, { useContext, useState } from "react";
+import {
+    FaGoogle,
+    FaEyeSlash,
+    FaEye,
+    FaHome,
+} from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
+import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
+import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
 
 const LoginPage = () => {
-    const axiosPublic = UseAxiosPublic()
+    const axiosPublic = UseAxiosPublic();
+    const { LoginUser, setUser, GoogleLogin } = useContext(AuthContext);
 
-    const [error, setError] = useState(null)
-    const [success, setSuccess] = useState(null)
+    const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const [show, setShow] = useState(false)
-    const ShowPassWord = (e) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const togglePassword = (e) => {
         e.preventDefault();
-        setShow(!show)
-    }
+        setShow(!show);
+    };
 
-
-    const navigate = useNavigate()
-    const location = useLocation()
-
-    //---------- Context use----------------------
-
-    const { LoginUser, setUser, GoogleLogin } = useContext(AuthContext)
-
-    const handleSubmit = (e) => {
+    // -------- Handle email/password login --------
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null)
-        setSuccess(null)
+        setLoading(true);
+        setError(null);
+
         const email = e.target.email.value;
         const password = e.target.password.value;
 
+        try {
+            const userCredential = await LoginUser(email, password);
+            const user = userCredential.user;
+            setUser(user);
 
-        //-------------------------login with email and password--------------------
-        LoginUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setUser(user)
-                setSuccess('LOGIN Successful.')
-                navigate(location.state ? location.state : '/')
-            })
-            .catch((error) => {
-                // console.log(error)
-                // navigate(location.state ? location.state : '/')
-                if (error) { setError('Password or Email is invalid..!') }
+            Swal.fire({
+                icon: "success",
+                title: "লগইন সফল!",
+                text: "স্বাগতম শাদিন বাংলায়।",
+                timer: 1800,
+                showConfirmButton: false,
             });
-    }
 
-    //------------------- HAndle google--------------
+            navigate(location.state ? location.state : "/");
+        } catch (err) {
+            setError("ইমেইল বা পাসওয়ার্ড সঠিক নয়!");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // -------- Google Login --------
     const HandleGoogleLogin = () => {
         GoogleLogin()
             .then((res) => {
-                // console.log(res.user)
-                setUser(res.user)
+                setUser(res.user);
 
                 const UserInfo = {
                     name: res.user.displayName,
                     email: res.user.email,
                     role: "user",
-                    isSubscribed: false
+                    isSubscribed: false,
                 };
 
-                setSuccess('LOGIN Successful.')
-                navigate(location.state ? location.state : '/')
+                axiosPublic.post("/users", UserInfo);
 
-                axiosPublic.post('/users', UserInfo)
-                    .then(res => {
-                        // console.log(res)
-                        if (res.data.insertedId) {
-                        }
-                    })
+                Swal.fire({
+                    icon: "success",
+                    title: "গুগল লগইন সফল!",
+                    text: "স্বাগতম শাদিন বাংলায়।",
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+
+                navigate(location.state ? location.state : "/");
             })
-            .catch(err => {
-
-                setUser(null)
-            })
-    }
-
+            .catch(() => {
+                setUser(null);
+                Swal.fire({
+                    icon: "error",
+                    title: "লগইন ব্যর্থ!",
+                    text: "পুনরায় চেষ্টা করুন।",
+                });
+            });
+    };
 
     return (
         <div
-            className="flex items-center justify-center min-h-screen py-10 bg-cover md:bg-center"
-            style={{ background: `url(${bg})`, backgroundSize: "cover" }}
+            className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+            style={{ backgroundImage: "url('/backgrounds/login-bg.jpg')" }}
         >
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-            <div className=" shadow-xl border backdrop-blur-lg text-white border-gray-400 rounded-lg flex flex-col lg:flex-row w-11/12 max-w-4xl overflow-hidden">
+            {/* Main Container */}
+            <div className="relative z-10 w-11/12 max-w-4xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
 
-                {/*----------------------- Left Side ------------------------*/}
-                <div className="w-full md:w-1/2 flex items-center justify-center flex-col p-3">
+                {/* Left Section - Branding */}
+                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-gradient-to-b from-red-600/80 to-red-800/80 p-10 text-white text-center">
+                    <img
+                        src="/icons/g.png"
+                        alt="Shadin Bangla"
+                        className="w-24 sm:w-32 mb-5 drop-shadow-lg"
+                    />
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-2">স্বাধীন বাংলা ২.০</h2>
+                    <p className="text-sm sm:text-base text-red-100 mb-6">
+                        আন্দোলনের গল্প, শহীদের স্মৃতি ও নতুন প্রজন্মের কণ্ঠ।
+                    </p>
 
-                    <img src={ill} alt="K-InfoNic" className="max-w-full h-auto object-contain md:w-40 w-20 " />
-
-                    <Link to={'/'} className="btn btn-sm bg-green-500 mt-2 md:mt-5">
-                        <FaHome className="mr-2" />
-                        Back to Home</Link>
+                    <Link
+                        to="/"
+                        className="flex items-center gap-2 bg-white text-red-700 font-semibold px-4 py-2 rounded-full shadow-md hover:bg-gray-100 transition"
+                    >
+                        <FaHome /> হোম পেজে ফিরে যান
+                    </Link>
                 </div>
 
-
-
-                {/*---------------------- Right Side-------------------- */}
-                <div className="lg:w-1/2 w-full p-8">
-
-                    <h2 className="text-2xl font-bold text-black rounded-full md:rounded-t-4xl py-2 lg:w-30 mx-auto  text-center bg-white mb-6 ">
-                        Login
+                {/* Right Section - Login Form */}
+                <div className="w-full lg:w-1/2 bg-white/90 p-8 sm:p-10 backdrop-blur-md">
+                    <h2 className="text-2xl font-bold text-center text-red-700 mb-6">
+                        লগইন করুন
                     </h2>
 
-
-                    <form className="space-y-4" onSubmit={handleSubmit}>
-
-                        {/* ------------------------Email Field ---------------------*/}
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        {/* Email */}
                         <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-sm font-medium"
-                            >
-                                Email
+                            <label htmlFor="email" className="block text-sm font-semibold text-gray-700">
+                                ইমেইল
                             </label>
                             <input
                                 type="email"
                                 id="email"
-                                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm  focus:border-green-400 peer"
-                                placeholder="Type here"
+                                name="email"
+                                placeholder="আপনার ইমেইল দিন"
+                                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
                         </div>
 
-                        {/* --------------------Password Field------------------- */}
+                        {/* Password */}
                         <div className="relative">
-                            <label className="my-1 text-sm font-semibold">Password</label>
+                            <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
+                                পাসওয়ার্ড
+                            </label>
                             <input
                                 type={show ? "text" : "password"}
                                 id="password"
                                 name="password"
-                                className="w-full px-4 py-2 text-white border border-gray-300 rounded-lg focus:outline-none focus:border-green-400 peer"
-                                placeholder="Enter Password."
+                                placeholder="আপনার পাসওয়ার্ড দিন"
+                                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
                                 required
                             />
                             <button
-                                onClick={ShowPassWord}
-                                className="mt-1 hover:text-green-400 btn-xs absolute right-3 top-8 text-lg text-white"
+                                onClick={togglePassword}
+                                className="absolute right-3 top-9 text-gray-500 hover:text-red-600"
                             >
                                 {show ? <FaEyeSlash /> : <FaEye />}
                             </button>
                         </div>
 
-                        {/* Error/Success Messages */}
+                        {/* Error Message */}
                         {error && (
-                            <p className="text-xs font-semibold text-green-500 text-center">
-                                {error}
-                            </p>
-                        )}
-                        {success && (
-                            <p className="text-xs font-semibold text-green-500 text-center">
-                                {success}
-                            </p>
+                            <p className="text-sm text-red-600 font-medium text-center">{error}</p>
                         )}
 
-                        {/* Submit Button */}
+                        {/* Submit */}
                         <button
                             type="submit"
-                            className="w-full py-2 bg-green-400 hover:bg-green-500 text-black font-medium rounded-md"
+                            disabled={loading}
+                            className="w-full py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition"
                         >
-                            Sign in
+                            {loading ? "লগইন হচ্ছে..." : "লগইন করুন"}
                         </button>
                     </form>
 
-                    {/* Registration Link */}
-                    <p className="mt-4 text-center text-sm text-gray-300">
-                        New here?{" "}
+                    {/* Divider */}
+                    <div className="my-5 border-t border-gray-300"></div>
+
+                    {/* Google Login */}
+                    <button
+                        onClick={HandleGoogleLogin}
+                        className="w-full flex items-center justify-center gap-2 py-2 border border-red-500 rounded-lg text-red-600 font-semibold hover:bg-red-600 hover:text-white transition"
+                    >
+                        <FaGoogle /> গুগল দিয়ে লগইন করুন
+                    </button>
+
+                    {/* Register link */}
+                    <p className="mt-5 text-center text-sm text-gray-600">
+                        নতুন একাউন্ট তৈরি করতে চান?{" "}
                         <Link
                             to="/register"
-                            className="text-green-500 hover:underline hover:font-bold"
+                            className="text-red-600 hover:underline font-semibold"
                         >
-                            Create a New Account
+                            রেজিস্ট্রেশন করুন
                         </Link>
                     </p>
-
-                    {/* Social Sign-in */}
-                    <div className="mt-4 text-center">
-                        <p className="text-sm text-gray-300">Or sign in with</p>
-                        <div className="flex justify-center space-x-4 mt-2">
-                            <button
-                                onClick={HandleGoogleLogin}
-                                className="w-full btn  btn-sm text-green-900"
-                            >
-                                <FaGoogle className="mr-2" />
-                                Sign in with Google
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
