@@ -15,6 +15,7 @@ import ManageBlogs from "../Components/AdminPage/ManageBlogs";
 import ManageReviews from "../Components/AdminPage/ManageReviews";
 import ManageUsers from "../Components/AdminPage/ManageUsers";
 import ManageShohid from "../Components/AdminPage/ManageShohid";
+import PrivetRout from "../Auth/Privet/Privetrought";
 
 
 export const router = createBrowserRouter([
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/blog/:id",
-                element: <BlogDetailsPage />
+                element: <PrivetRout><BlogDetailsPage /></PrivetRout>
             },
             {
                 path: '/writeBlog',
@@ -69,9 +70,10 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <SignupPage />
     },
+    // ------------------admin panel-----------------
     {
         path: "/manage",
-        element: <AdminPageLayOut />,
+        element: <PrivetRout><AdminPageLayOut /></PrivetRout>,
         children: [
             {
                 path: '/manage',
