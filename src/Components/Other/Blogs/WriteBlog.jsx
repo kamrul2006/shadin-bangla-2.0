@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Swal from "sweetalert2";
 import {
@@ -7,9 +7,14 @@ import {
     FaImage,
     FaPenFancy,
     FaTags,
+    FaHome,
+    FaSignInAlt,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Auth/Providers/AuthProvider";
 
 const WriteBlog = () => {
+    const { user } = useContext(AuthContext); // 🔐 ইউজার কনটেক্সট
     const [formData, setFormData] = useState({
         title: "",
         author: "",
@@ -92,6 +97,44 @@ const WriteBlog = () => {
         }
     };
 
+    // ------------------------
+    // If user not logged in
+    // ------------------------
+    if (!user) {
+        return (
+            <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-rose-50 px-4 py-12">
+                <div className="max-w-md w-full bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-3xl p-8 text-center">
+                    <Fade triggerOnce>
+                        <h2 className="text-2xl font-bold text-red-600 mb-3">
+                            ⚠️ আপনি লগইন করেননি!
+                        </h2>
+                        <p className="text-gray-700 mb-6 text-sm sm:text-base">
+                            ব্লগ লিখতে হলে আগে লগইন করতে হবে। লগইন করলে আপনি আপনার চিন্তা ও গল্প অন্যদের সঙ্গে ভাগ করতে পারবেন।
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row justify-center gap-3">
+                            <Link
+                                to="/"
+                                className="flex items-center justify-center gap-2 px-6 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-xl transition"
+                            >
+                                <FaHome /> হোমে ফিরে যান
+                            </Link>
+                            <Link
+                                to="/login"
+                                className="flex items-center justify-center gap-2 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition"
+                            >
+                                <FaSignInAlt /> এখনই লগইন করুন
+                            </Link>
+                        </div>
+                    </Fade>
+                </div>
+            </section>
+        );
+    }
+
+    // ------------------------
+    // If user logged in
+    // ------------------------
     return (
         <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-gray-100 py-10 px-4">
             <div className="w-full max-w-3xl bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-10">
