@@ -40,7 +40,7 @@ const BlogPageBanner = () => {
                         </Link>
                         <Link
                             to="/"
-                            className="px-6 py-2 rounded-lg border-2 border-white font-semibold hover:bg-white hover:text-red-700 transform hover:scale-105 transition duration-300"
+                            className="px-6 py-2 rounded-lg border-2 border-white font-semibold hover:bg-white hover:text-red-700 transform hover:scale-105 transition duration-300 text-white"
                         >
                             হোম পেজে ফিরে যান
                         </Link>

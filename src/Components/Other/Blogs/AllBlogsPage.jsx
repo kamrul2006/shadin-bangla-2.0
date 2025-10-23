@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
-import { FaCalendarAlt, FaSearch } from "react-icons/fa";
+import { FaArrowRight, FaCalendarAlt, FaSearch } from "react-icons/fa";
 
 const AllBlogsPage = () => {
     const [blogs, setBlogs] = useState([]);
@@ -132,9 +132,9 @@ const AllBlogsPage = () => {
                                             </div>
                                             <Link
                                                 to={`/blog/${blog._id}`}
-                                                className="text-red-600 font-semibold hover:underline"
+                                                className="text-red-600 font-semibold hover:underline flex items-center gap-2"
                                             >
-                                                পড়ুন
+                                                পড়ুন <FaArrowRight className="text-xs" />
                                             </Link>
                                         </div>
                                     </div>
