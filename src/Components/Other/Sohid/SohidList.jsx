@@ -1,33 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { BiSearch } from "react-icons/bi";
 
-const mediaItems = [
-    { id: 1, title: "আবু সাইদ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid.jpg" },
-    { id: 2, title: "আব্দুল আহাদ", add: "৪ বছরের শিশু", date: "১৯ জুলাই, ২০২৪", img: "/sohid/sohid1.jpg" },
-    { id: 3, title: "রিয়া গোপ", add: "৬ বছরের শিশু", date: "২৪ জুলাই, ২০২৪", img: "/sohid/sohid2.jpg" },
-    { id: 4, title: "দীপ্ত দে", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid3.jpg" },
-    { id: 5, title: "তাহমিদ তামিম", add: "কাদির মোল্লা হাই স্কুল, নরসিংদী", date: "১৮ জুলাই, ২০২৪", img: "/sohid/sohid6.jpg" },
-    { id: 6, title: "মীর মুগ্ধ", add: "বাংলাদেশ ইউনিভার্সিটি অফ প্রফেশনালস", date: "১৮ জুলাই, ২০২৪", img: "/sohid/sohid7.jpg" },
-    { id: 7, title: "শহিদুজ্জামান তানভিন", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid5.jpg" },
-    { id: 8, title: "আসিফ", add: "বেগম রোকেয়া বিশ্ববিদ্যালয়, রংপুর", date: "১৬ জুলাই, ২০২৪", img: "/sohid/sohid4.jpg" },
-];
-
 const SohidList = () => {
+    const [shohids, setShohids] = useState([]);
+    const [filteredShohids, setFilteredShohids] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
 
-    // --------------------Filter by name------------------
-    const filteredItems = mediaItems.filter(item =>
-        item.title.includes(searchTerm.toLowerCase())
-    );
+    // ✅ Fetch Shohid data
+    useEffect(() => {
+        fetch("http://localhost:5000/Shohid")
+            .then((res) => res.json())
+            .then((data) => {
+                setShohids(data);
+                setFilteredShohids(data);
+            })
+            .catch((err) => console.error("Error fetching Shohid data:", err));
+    }, []);
+
+    // ✅ Filter by name (case-insensitive)
+    useEffect(() => {
+        const results = shohids.filter((item) =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredShohids(results);
+        setCurrentPage(1);
+    }, [searchTerm, shohids]);
+
+    // ✅ Pagination logic
+    const totalPages = Math.ceil(filteredShohids.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const currentItems = filteredShohids.slice(startIndex, startIndex + itemsPerPage);
+
+    const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <section className="py-16 bg-gray-50 text-black">
+        <section className="py-16 bg-gray-50 text-black min-h-screen">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* ----------------------------Header + Search-------------------------*/}
+                {/* ---------------- Header + Search ---------------- */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center md:text-left">
-                        জুলাই আন্দোলনে <span className="text-red-700">শহীদদের</span> তালিকা
+                        জুলাই আন্দোলনের{" "}
+                        <span className="text-red-700">শহীদদের</span> তালিকা
                     </h2>
 
                     <div className="flex items-center border rounded-2xl bg-gray-200 w-full md:w-80 px-3 py-2">
@@ -44,32 +60,43 @@ const SohidList = () => {
 
                 <hr className="border-gray-300 mb-8" />
 
-                {/* -------------------------Grid-------------------- */}
-                {filteredItems.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                        {filteredItems.map((item, index) => (
-                            <Fade delay={index * 80} triggerOnce key={item.id}>
-                                <div className="bg-white rounded-2xl shadow-lg overflow-hidden group cursor-pointer flex flex-col transition-transform duration-500 hover:scale-105 hover:shadow-2xl">
+                {/* ---------------- Shohid Grid ---------------- */}
+                {currentItems.length > 0 ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                        {currentItems.map((item, index) => (
+                            <Fade delay={index * 60} triggerOnce key={item._id}>
+                                <div className="bg-white rounded-xl shadow-md overflow-hidden group cursor-pointer flex flex-col transition-transform duration-500 hover:scale-[1.03] hover:shadow-xl">
                                     {/* Image */}
-                                    <div className="relative h-64 w-full overflow-hidden">
+                                    <div className="relative h-40 sm:h-56 md:h-64 w-full overflow-hidden">
                                         <img
-                                            src={item.img}
-                                            alt={item.title}
+                                            src={item.image}
+                                            alt={item.name}
                                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-4">
-                                            <h3 className="text-white font-bold text-lg sm:text-xl">
-                                                {item.title}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 md:flex flex-col justify-end p-3 sm:p-4 hidden ">
+                                            <h3 className="text-white font-bold text-base sm:text-lg truncate">
+                                                {item.name}
                                             </h3>
-                                            <p className="text-white text-sm sm:text-base">{item.add}</p>
-                                            <p className="text-white text-sm sm:text-base">মৃত্যু তারিখ: {item.date}</p>
+                                            <p className="text-red-300 font-bold text-xs sm:text-sm">
+                                                মৃত্যুর তারিখ: {item.date_of_death}
+                                            </p>
+                                            <p className="text-white/60 text-xs ">
+                                                {item.short_info?.slice(0, 150)}...
+                                            </p>
                                         </div>
                                     </div>
 
-                                    {/* ---------------------Card Content on sm devise------------ */}
-                                    <div className="p-4 md:hidden">
-                                        <h3 className="text-gray-900 font-semibold text-lg truncate">{item.title}</h3>
-                                        <p className="text-gray-600 text-sm truncate">{item.add}</p>
+                                    {/* Card Content (visible on mobile) */}
+                                    <div className="p-3 md:hidden">
+                                        <h3 className="text-gray-900 font-semibold text-base truncate px-1">
+                                            {item.name}
+                                        </h3>
+                                        <p className="text-gray-600 text-xs ">
+                                            {item.short_info?.slice(0, 120)}...
+                                        </p>
+                                        <p className="text-red-500 font-bold text-sm">
+                                            মৃত্যুর তারিখ: {item.date_of_death}
+                                        </p>
                                     </div>
                                 </div>
                             </Fade>
@@ -79,6 +106,24 @@ const SohidList = () => {
                     <p className="text-center text-gray-500 font-medium mt-10">
                         কোন শহীদ পাওয়া যায়নি।
                     </p>
+                )}
+
+                {/* ---------------- Pagination ---------------- */}
+                {filteredShohids.length > itemsPerPage && (
+                    <div className="flex justify-center mt-10 gap-2 flex-wrap">
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i + 1}
+                                onClick={() => handlePageChange(i + 1)}
+                                className={`px-4 py-2 rounded-md border text-sm font-medium transition-all ${currentPage === i + 1
+                                    ? "bg-red-700 text-white border-red-700"
+                                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                                    }`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </div>
                 )}
             </div>
         </section>

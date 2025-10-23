@@ -16,11 +16,13 @@ import {
     FiUserPlus,
     FiSettings,
 } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Auth/Providers/AuthProvider";
 
 const NavBar = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
     const { user, UserSignOut } = useContext(AuthContext);
 
     const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +57,7 @@ const NavBar = () => {
         { to: "/contact", label: "যোগাযোগ", icon: <FiMail className="inline-block mr-1" /> },
     ];
 
-    // ✅ Add admin-only route dynamically
+    // -------------------- Add admin-only route dynamically
     if (isAdmin) {
         navLinks.push({
             to: "/manage",
@@ -88,13 +90,17 @@ const NavBar = () => {
                     </Fade>
 
                     {/* Center Nav Links */}
-                    <div className="hidden md:flex space-x-6 mx-auto">
+                    <div className="hidden md:flex space-x-3 mx-auto">
                         {navLinks.map((link, index) => (
                             <Fade delay={index * 100} triggerOnce key={link.to}>
                                 <Link
                                     to={link.to}
                                     onClick={handleNavClick}
-                                    className="text-white font-medium hover:text-yellow-300 transition flex items-center"
+                                    className={`flex items-center gap-2 font-medium px-3 py-1 rounded-md transition-all transform-border transform-3d
+                ${location.pathname === link.to
+                                            ? "border-b-2 border-amber-400 text-yellow-300 shadow"
+                                            : "text-white hover:text-yellow-300 hover:bg-green-700/30 "
+                                        }`}
                                 >
                                     {link.icon}
                                     {link.label}

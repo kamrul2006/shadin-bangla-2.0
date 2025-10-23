@@ -71,7 +71,7 @@ const ManageNavbar = () => {
                             className={`flex items-center gap-2 font-medium px-3 py-2 rounded-md transition-all 
                 ${location.pathname === link.to
                                     ? "bg-green-800 text-yellow-300 shadow-sm"
-                                    : "text-white hover:text-yellow-300 hover:bg-green-700/30"
+                                    : "text-white hover:text-yellow-300 hover:bg-green-700/30 "
                                 }`}
                         >
                             {link.icon}

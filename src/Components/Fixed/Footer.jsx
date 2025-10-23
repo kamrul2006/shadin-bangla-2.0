@@ -57,8 +57,24 @@ const Footer = () => {
 
             {/* Bottom Bar */}
             <div className="mt-10 border-t border-white/20 pt-4 text-center text-sm opacity-80">
-                © {new Date().getFullYear()} স্বাধীন বাংলা ২.০ — সর্বস্বত্ব সংরক্ষিত।
+
+
+                {/* ---------------- Copyright / Developer ---------------- */}
+                <div className="flex  justify-around">
+                    <p className="mb-2">
+                        © {new Date().getFullYear()} স্বাধীন বাংলা ২.০. All rights reserved.
+                    </p>
+                    <p className="text-sm text-gray-400">
+                        Developed by <span className="text-yellow-400 font-semibold font-sans hover:text-amber-200 hover:border-b border-amber-400 transition-all">
+                            <a href="https://kiapurba.vercel.app">
+                                Kamrul Islam Apurba</a>
+                        </span>
+                    </p>
+                </div>
+
+
             </div>
+
         </footer>
     );
 };
