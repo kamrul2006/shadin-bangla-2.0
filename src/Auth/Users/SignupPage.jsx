@@ -1,14 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { FaEye, FaEyeSlash, FaFacebook, FaGithub, FaGoogle, FaHome } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGoogle, FaHome } from "react-icons/fa";
 import { sendEmailVerification } from "firebase/auth";
 import { AuthContext } from "../Providers/AuthProvider";
 import { auth } from "../FireBase/firebase.init";
-import bg from "../../assets/lbgg.jpg";
-import ill from "../../assets/logo.png";
 import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
-
-
 
 const SignupPage = () => {
     const axiosPublic = UseAxiosPublic();
@@ -19,202 +15,204 @@ const SignupPage = () => {
     const [success, setSuccess] = useState(null);
     const [show, setShow] = useState(false);
 
-    const HandleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         setError(null);
         setSuccess(null);
 
-        const Email = e.target.email.value;
-        const Password = e.target.password.value;
-        const Name = e.target.name.value;
-        const Terms = e.target.terms.checked;
-        const Photo = e.target.photo.value
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        const photo = form.photo.value;
+        const terms = form.terms.checked;
 
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+        const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
-        if (!Terms) {
-            setError("Please accept all terms and conditions.");
-            return;
-        } else if (Password.length < 6) {
-            setError("Password should be at least 6 characters long.");
-            return;
-        } else if (!passwordRegex.test(Password)) {
-            setError("Password should contain a-z, A-Z, 0-9, and a special character.");
-            return;
+        if (!terms) return setError("দয়া করে শর্তাবলী ও নীতিমালা মেনে নিন।");
+        if (password.length < 6) return setError("পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।");
+        if (!passwordRegex.test(password))
+            return setError("পাসওয়ার্ডে বড় হাতের, ছোট হাতের অক্ষর, সংখ্যা ও বিশেষ চিহ্ন থাকতে হবে।");
+
+        try {
+            const userCredential = await CreateUserByMailPass(email, password);
+            const user = userCredential.user;
+            setUser(user);
+
+            await updatedProfile({ displayName: name, photoURL: photo });
+            await sendEmailVerification(auth.currentUser);
+
+            const userInfo = {
+                name,
+                email,
+                role: "user",
+                isSubscribed: false,
+            };
+
+            await axiosPublic.post("/users", userInfo);
+            setSuccess("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!");
+            form.reset();
+            navigate("/");
+        } catch (err) {
+            console.error(err);
+            setError("সাইন আপ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
         }
-
-        CreateUserByMailPass(Email, Password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setUser(user);
-
-                const UserInfo = {
-                    name: Name,
-                    email: Email,
-                    role: "user",
-                    isSubscribed: false
-                };
-
-                axiosPublic.post("/Users", UserInfo).then((res) => {
-                    if (res.data.insertedId) {
-                        setSuccess("Sign Up Successful.");
-                    }
-                });
-
-                updatedProfile({ displayName: Name, photoURL: Photo })
-                    .then(() => {
-                        e.target.reset();
-                        navigate("/");
-                    })
-                    .catch((err) => setError(err.message));
-
-                sendEmailVerification(auth.currentUser).then(() => { });
-            });
     };
 
-    const HandleGoogleLogin = () => {
-        GoogleLogin()
-            .then((res) => {
-                setUser(res.user);
+    const handleGoogleLogin = async () => {
+        try {
+            const res = await GoogleLogin();
+            setUser(res.user);
 
-                const UserInfo = {
-                    name: res.user.displayName,
-                    email: res.user.email,
-                    role: "user",
-                    isSubscribed: false
-                };
-
-                axiosPublic.post("/users", UserInfo).then(() => { });
-                setSuccess("Sign Up Successful.");
-                navigate("/");
-            })
-            .catch((err) => {
-                console.log(err);
-                setUser(null);
-            });
-    };
-
-    const ShowPassWord = (e) => {
-        e.preventDefault();
-        setShow(!show);
+            const userInfo = {
+                name: res.user.displayName,
+                email: res.user.email,
+                role: "user",
+                isSubscribed: false,
+            };
+            await axiosPublic.post("/users", userInfo);
+            setSuccess("গুগল দিয়ে সফলভাবে সাইন আপ হয়েছে!");
+            navigate("/");
+        } catch (err) {
+            console.error(err);
+            setError("গুগল লগইন ব্যর্থ হয়েছে।");
+            setUser(null);
+        }
     };
 
     return (
         <div
-            className="  flex items-center justify-center min-h-screen py-10 bg-cover md:bg-center"
-            style={{ background: `url(${bg})`, backgroundSize: "cover" }}
+            className="min-h-screen flex items-center justify-center bg-cover bg-center px-4 py-12"
+            style={{ backgroundImage: "url('/backgrounds/login-bg.jpg')" }}
         >
-            <div className="backdrop-blur shadow-xl rounded-lg flex flex-col text-white md:flex-row-reverse w-full max-w-4xl overflow-hidden">
-                {/* Left Side */}
-                <div className="w-full md:w-1/2 flex items-center justify-center flex-col p-3">
-                    <img src={ill} alt="K-InfoNic" className="max-w-full h-auto object-contain md:w-44 w-20" />
-                    <Link to={'/'} className="btn btn-sm bg-green-500 mt-2 md:mt-5">
-                        <FaHome className="mr-2" />
-                        Back to Home</Link>
+            <div className="w-full max-w-4xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl rounded-3xl overflow-hidden flex flex-col md:flex-row-reverse">
+                {/* ---------- বাম দিক ---------- */}
+                <div className="w-full md:w-1/2 flex flex-col items-center justify-center bg-gradient-to-b from-green-600/90 to-green-700/90 text-white p-8 md:p-10">
+
+                    <img src="/icons/g.png" alt="Shadin Bangla" className="w-32  md:w-44 mb-4 drop-shadow-xl drop-shadow-blue-50" />
+
+                    <h2 className="text-2xl font-bold tracking-wide">স্বাধীন বাংলা ২.০</h2>
+                    <p className="text-sm text-gray-100 mt-2 text-center">
+                        ব্লগ পড়ুন, লিখুন এবং আপনার চিন্তা সবার সাথে ভাগ করুন।
+                    </p>
+                    <Link
+                        to="/"
+                        className="mt-6 inline-flex items-center gap-2 bg-white text-green-700 font-semibold px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition"
+                    >
+                        <FaHome /> হোমে ফিরে যান
+                    </Link>
                 </div>
 
-                {/* Right Side */}
-                <div className="w-full md:w-1/2 p-6 md:p-12">
-                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">Sign Up</h2>
-                    <form onSubmit={HandleSignUp} className="space-y-2">
+                {/* ---------- ডান দিক ---------- */}
+                <div className="w-full md:w-1/2 bg-white/80 text-gray-800 p-8 md:p-10">
+                    <h2 className="text-3xl font-bold text-center text-green-700 mb-6">
+                        নতুন একাউন্ট তৈরি করুন
+                    </h2>
 
+                    <form onSubmit={handleSignUp} className="space-y-4">
+                        {/* নাম */}
                         <div>
-                            <label htmlFor="name" className="text-sm font-medium">
-                                Full Name:
-                            </label>
+                            <label className="text-sm font-semibold">পূর্ণ নাম</label>
                             <input
                                 type="text"
-                                id="name"
                                 name="name"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-green-400 focus:border-green-400"
-                                placeholder="First name + Last name"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+                                placeholder="আপনার নাম লিখুন"
                                 required
                             />
                         </div>
 
+                        {/* ছবি লিংক */}
                         <div>
-                            <label htmlFor="name" className="text-sm font-medium">
-                                Photo Url:
-                            </label>
+                            <label className="text-sm font-semibold">ছবির লিংক</label>
                             <input
                                 type="text"
-                                id="photo"
                                 name="photo"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-green-400 focus:border-green-400"
-                                placeholder="Photo URL Link"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+                                placeholder="ছবির URL লিখুন"
                                 required
                             />
                         </div>
 
+                        {/* ইমেইল */}
                         <div>
-                            <label htmlFor="email" className="text-sm font-medium">
-                                Email Address:
-                            </label>
+                            <label className="text-sm font-semibold">ইমেইল ঠিকানা</label>
                             <input
                                 type="email"
-                                id="email"
                                 name="email"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-green-400 focus:border-green-400"
-                                placeholder="Email"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+                                placeholder="আপনার ইমেইল লিখুন"
                                 required
                             />
                         </div>
 
+                        {/* পাসওয়ার্ড */}
                         <div className="relative">
-                            <label htmlFor="password" className="text-sm font-medium">
-                                Password:
-                            </label>
+                            <label className="text-sm font-semibold">পাসওয়ার্ড</label>
                             <input
                                 type={show ? "text" : "password"}
-                                id="password"
                                 name="password"
-                                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-green-400 focus:border-green-400"
-                                placeholder="Password"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+                                placeholder="পাসওয়ার্ড লিখুন"
                                 required
                             />
                             <button
-                                onClick={ShowPassWord}
-                                className="absolute right-3 top-9 text-lg text-gray-600"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setShow(!show);
+                                }}
+                                className="absolute right-3 top-9 text-gray-600 text-lg"
                             >
                                 {show ? <FaEyeSlash /> : <FaEye />}
                             </button>
                         </div>
 
+                        {/* শর্তাবলী */}
                         <div className="flex items-center gap-2">
-                            <input type="checkbox" name="terms" className="checkbox checkbox-success" />
-                            <label className="text-sm text-green-500 cursor-pointer">
-                                Accept all terms and conditions
-                            </label>
+                            <input type="checkbox" name="terms" className="accent-green-600" />
+                            <span className="text-sm">
+                                আমি{" "}
+                                <Link to="/terms" className="text-green-600 underline">
+                                    শর্তাবলী ও নীতিমালা
+                                </Link>{" "}
+                                মেনে নিচ্ছি।
+                            </span>
                         </div>
 
-                        {error && <p className="text-sm text-red-500 text-center">{error}</p>}
-                        {success && <p className="text-sm text-green-500 text-center">{success}</p>}
+                        {/* বার্তা */}
+                        {error && <p className="text-sm text-red-600 text-center">{error}</p>}
+                        {success && <p className="text-sm text-green-600 text-center">{success}</p>}
 
+                        {/* বোতাম */}
                         <button
                             type="submit"
-                            className="w-full py-2 bg-green-400 hover:bg-green-500 text-white font-medium rounded-md"
+                            className="w-full py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition"
                         >
-                            Sign Up
+                            সাইন আপ করুন
                         </button>
                     </form>
 
-                    <div className="mt-4 text-center">
-                        <p className="text-sm text-gray-600">Or sign up with</p>
-                        <div className="flex justify-center gap-4 mt-2">
-                            <button
-                                onClick={HandleGoogleLogin}
-                                className="w-full btn bg-green-500 btn-sm text-black"
-                            >
-                                <FaGoogle className="mr-2" />
-                                Sign in with Google
-                            </button>
-                        </div>
+                    {/* বিভাজক */}
+                    <div className="flex items-center my-5">
+                        <div className="flex-grow border-t border-gray-300"></div>
+                        <span className="mx-3 text-gray-500 text-sm">অথবা</span>
+                        <div className="flex-grow border-t border-gray-300"></div>
                     </div>
 
-                    <p className="text-center mt-4">
-                        Already have an account?{" "}
-                        <Link to="/logIn" className="text-green-500 hover:underline">
-                            Log in
+                    {/* গুগল লগইন */}
+                    <button
+                        onClick={handleGoogleLogin}
+                        className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition"
+                    >
+                        <FaGoogle /> গুগল দিয়ে লগইন করুন
+                    </button>
+
+                    {/* লগইন লিংক */}
+                    <p className="text-center text-sm mt-4">
+                        ইতিমধ্যে একাউন্ট আছে?{" "}
+                        <Link to="/login" className="text-green-600 font-semibold hover:underline">
+                            লগইন করুন
                         </Link>
                     </p>
                 </div>
