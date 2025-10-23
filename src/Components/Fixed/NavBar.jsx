@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
-import { BiPhotoAlbum } from "react-icons/bi";
-import { FiMenu, FiX, FiHome, FiBookOpen, FiInfo, FiMail } from "react-icons/fi";
-import { MdArticle } from "react-icons/md";
-import { Link } from "react-router";
+import {
+    BiPhotoAlbum,
+    BiLogOut,
+    BiUserCircle,
+} from "react-icons/bi";
+import {
+    FiMenu,
+    FiX,
+    FiHome,
+    FiBookOpen,
+    FiInfo,
+    FiMail,
+    FiLogIn,
+    FiUserPlus,
+} from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Auth/Providers/AuthProvider";
 
 const NavBar = () => {
+    const navigate = useNavigate();
+    const { user, UserSignOut } = useContext(AuthContext);
+
     const [isOpen, setIsOpen] = useState(false);
+    const [dropdown, setDropdown] = useState(false);
 
     const handleNavClick = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     const navLinks = [
@@ -20,17 +37,21 @@ const NavBar = () => {
         { to: "/contact", label: "যোগাযোগ", icon: <FiMail className="inline-block mr-1" /> },
     ];
 
-    return (
-        <nav className="bg-gradient-to-r from-green-500/70 via-emerald-500/70 to-teal-600/70 shadow-lg fixed w-full z-20 backdrop-blur">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16 items-center">
+    const handleSignOut = async () => {
+        await UserSignOut();
+        navigate("/");
+    };
 
-                    {/* Logo + Name */}
+    return (
+        <nav className="bg-gradient-to-r from-green-600/80 via-emerald-600/80 to-teal-700/80 shadow-md fixed w-full z-30 backdrop-blur-md">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between items-center h-16">
+                    {/* Logo */}
                     <Fade direction="left" triggerOnce>
                         <Link
                             to="/"
                             onClick={handleNavClick}
-                            className="flex items-center gap-2 hover:opacity-80 transition duration-300"
+                            className="flex items-center gap-2 hover:opacity-80 transition"
                         >
                             <img className="w-10 drop-shadow-md" src="/icons/g.png" alt="২.০" />
                             <h1 className="hidden md:block text-xl font-extrabold text-white tracking-wide">
@@ -39,14 +60,14 @@ const NavBar = () => {
                         </Link>
                     </Fade>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:flex space-x-6">
+                    {/* Center Nav Links */}
+                    <div className="hidden md:flex space-x-6 mx-auto">
                         {navLinks.map((link, index) => (
                             <Slide direction="down" delay={index * 100} triggerOnce key={link.to}>
                                 <Link
                                     to={link.to}
                                     onClick={handleNavClick}
-                                    className="text-white font-medium hover:text-yellow-300 transition duration-300 flex items-center"
+                                    className="text-white font-medium hover:text-yellow-300 transition flex items-center"
                                 >
                                     {link.icon}
                                     {link.label}
@@ -55,25 +76,69 @@ const NavBar = () => {
                         ))}
                     </div>
 
-                    {/* Mobile Hamburger */}
+                    {/*---------------- Right Side: Auth Area --------------------*/}
+                    <div className="hidden md:flex items-center gap-3 relative">
+                        {user ? (
+                            <>
+                                <button
+                                    onClick={() => setDropdown(!dropdown)}
+                                    className="focus:outline-none flex items-center gap-2 text-white"
+                                >
+                                    <img
+                                        src={user?.photoURL || "/icons/defaultUser.png"}
+                                        alt="Profile"
+                                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                                    />
+                                </button>
+
+                                {/* -------------------Dropdown -------------------*/}
+                                {dropdown && (
+                                    <div className="absolute right-0 top-14 bg-white rounded-lg shadow-md w-44 py-2 border border-gray-200 animate-fadeIn">
+                                        <p className="px-4 text-sm text-gray-700 font-semibold border-b pb-2">
+                                            {user.displayName || "ইউজার"}
+                                        </p>
+                                        <button
+                                            onClick={handleSignOut}
+                                            className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                        >
+                                            <BiLogOut /> সাইন আউট
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <div className="flex gap-3">
+                                <Link
+                                    to="/login"
+                                    className="flex items-center gap-1 text-white font-medium hover:text-yellow-300 transition"
+                                >
+                                    <FiLogIn /> লগইন
+                                </Link>
+                                <Link
+                                    to="/register"
+                                    className="flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-3 py-1.5 rounded-md transition"
+                                >
+                                    <FiUserPlus /> সাইন আপ
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    {/*------------------------- Mobile Menu Button ---------------------*/}
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="text-white focus:outline-none"
                         >
-                            {isOpen ? (
-                                <FiX className="w-7 h-7" />
-                            ) : (
-                                <FiMenu className="w-7 h-7" />
-                            )}
+                            {isOpen ? <FiX className="w-7 h-7" /> : <FiMenu className="w-7 h-7" />}
                         </button>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* -----------------------Mobile Dropdown---------------------- */}
             {isOpen && (
-                <Slide direction="down" duration={500}>
+                <Slide direction="down" duration={400}>
                     <div className="md:hidden bg-white border-t shadow-md">
                         <div className="flex flex-col space-y-3 px-4 py-4">
                             {navLinks.map((link) => (
@@ -84,12 +149,51 @@ const NavBar = () => {
                                         setIsOpen(false);
                                         handleNavClick();
                                     }}
-                                    className="text-gray-700 hover:text-green-600 font-medium transition flex items-center gap-1"
+                                    className="text-gray-700 hover:text-green-600 font-medium flex items-center gap-1"
                                 >
                                     {link.icon}
                                     {link.label}
                                 </Link>
                             ))}
+
+                            {/* -----------------------Auth Area (Mobile)--------------------- */}
+                            <div className="border-t pt-3 mt-2">
+                                {user ? (
+                                    <>
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <img
+                                                src={user?.photoURL || "/icons/defaultUser.png"}
+                                                alt="Profile"
+                                                className="w-9 h-9 rounded-full border border-gray-300"
+                                            />
+                                            <span className="font-medium text-gray-700">{user.displayName}</span>
+                                        </div>
+                                        <button
+                                            onClick={handleSignOut}
+                                            className="flex items-center gap-2 text-red-600 font-medium"
+                                        >
+                                            <BiLogOut /> সাইন আউট
+                                        </button>
+                                    </>
+                                ) : (
+                                    <div className="flex flex-col gap-2">
+                                        <Link
+                                            to="/login"
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex items-center gap-2 text-green-700 font-medium"
+                                        >
+                                            <FiLogIn /> লগইন
+                                        </Link>
+                                        <Link
+                                            to="/register"
+                                            onClick={() => setIsOpen(false)}
+                                            className="flex items-center gap-2 text-yellow-600 font-medium"
+                                        >
+                                            <FiUserPlus /> সাইন আপ
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </Slide>
