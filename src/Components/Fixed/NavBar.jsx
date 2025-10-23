@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import {
     BiPhotoAlbum,
@@ -14,6 +14,7 @@ import {
     FiMail,
     FiLogIn,
     FiUserPlus,
+    FiSettings,
 } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Auth/Providers/AuthProvider";
@@ -24,10 +25,27 @@ const NavBar = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [dropdown, setDropdown] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const handleNavClick = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
+
+    // ✅ Fetch user role from backend
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:5000/users/${user.email}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data?.role === "admin") {
+                        setIsAdmin(true);
+                    } else {
+                        setIsAdmin(false);
+                    }
+                })
+                .catch((err) => console.error("User fetch error:", err));
+        }
+    }, [user]);
 
     const navLinks = [
         { to: "/", label: "হোম", icon: <FiHome className="inline-block mr-1" /> },
@@ -36,6 +54,15 @@ const NavBar = () => {
         { to: "/julyGallery", label: "জুলাই গ্যালারি", icon: <BiPhotoAlbum className="inline-block mr-1" /> },
         { to: "/contact", label: "যোগাযোগ", icon: <FiMail className="inline-block mr-1" /> },
     ];
+
+    // ✅ Add admin-only route dynamically
+    if (isAdmin) {
+        navLinks.push({
+            to: "/manage",
+            label: "ম্যানেজ",
+            icon: <FiSettings className="inline-block mr-1" />,
+        });
+    }
 
     const handleSignOut = async () => {
         await UserSignOut();
@@ -76,7 +103,7 @@ const NavBar = () => {
                         ))}
                     </div>
 
-                    {/*---------------- Right Side: Auth Area --------------------*/}
+                    {/* Right Side: Auth Area */}
                     <div className="hidden md:flex items-center gap-3 relative">
                         {user ? (
                             <>
@@ -91,12 +118,20 @@ const NavBar = () => {
                                     />
                                 </button>
 
-                                {/* -------------------Dropdown -------------------*/}
+                                {/* Dropdown */}
                                 {dropdown && (
                                     <div className="absolute right-0 top-14 bg-white rounded-lg shadow-md w-44 py-2 border border-gray-200 animate-fadeIn">
                                         <p className="px-4 text-sm text-gray-700 font-semibold border-b pb-2">
                                             {user.displayName || "ইউজার"}
                                         </p>
+                                        {isAdmin && (
+                                            <Link
+                                                to="/manage"
+                                                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                                            >
+                                                <FiSettings /> ম্যানেজ
+                                            </Link>
+                                        )}
                                         <button
                                             onClick={handleSignOut}
                                             className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center gap-2"
@@ -124,7 +159,7 @@ const NavBar = () => {
                         )}
                     </div>
 
-                    {/*------------------------- Mobile Menu Button ---------------------*/}
+                    {/* Mobile Menu Button */}
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
@@ -136,7 +171,7 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {/* -----------------------Mobile Dropdown---------------------- */}
+            {/* Mobile Dropdown */}
             {isOpen && (
                 <Slide direction="down" duration={400}>
                     <div className="md:hidden bg-white border-t shadow-md">
@@ -156,7 +191,7 @@ const NavBar = () => {
                                 </Link>
                             ))}
 
-                            {/* -----------------------Auth Area (Mobile)--------------------- */}
+                            {/* Auth Area (Mobile) */}
                             <div className="border-t pt-3 mt-2">
                                 {user ? (
                                     <>
@@ -168,6 +203,15 @@ const NavBar = () => {
                                             />
                                             <span className="font-medium text-gray-700">{user.displayName}</span>
                                         </div>
+                                        {isAdmin && (
+                                            <Link
+                                                to="/manage"
+                                                onClick={() => setIsOpen(false)}
+                                                className="flex items-center gap-2 text-blue-600 font-medium"
+                                            >
+                                                <FiSettings /> ম্যানেজ
+                                            </Link>
+                                        )}
                                         <button
                                             onClick={handleSignOut}
                                             className="flex items-center gap-2 text-red-600 font-medium"
