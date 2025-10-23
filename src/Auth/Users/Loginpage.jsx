@@ -103,7 +103,7 @@ const LoginPage = () => {
             <div className="relative z-10 w-11/12 max-w-4xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row">
 
                 {/* Left Section - Branding */}
-                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-gradient-to-b from-red-600/80 to-red-800/80 p-10 text-white text-center">
+                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center bg-gradient-to-b from-red-600/50 to-red-800/50 p-10 text-white text-center backdrop-blur">
                     <img
                         src="/icons/g.png"
                         alt="Shadin Bangla"
@@ -123,7 +123,7 @@ const LoginPage = () => {
                 </div>
 
                 {/* Right Section - Login Form */}
-                <div className="w-full lg:w-1/2 bg-white/90 p-8 sm:p-10 backdrop-blur-md">
+                <div className="w-full lg:w-1/2 bg-white/60 p-8 sm:p-10 backdrop-blur-md">
                     <h2 className="text-2xl font-bold text-center text-red-700 mb-6">
                         লগইন করুন
                     </h2>
