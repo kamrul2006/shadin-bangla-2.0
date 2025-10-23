@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import { FaCheckCircle, FaTrashAlt, FaClock } from "react-icons/fa";
+import { FaCheck, FaTrash, FaClock, FaArrowRight } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
 
 const ManageBlogs = () => {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // ✅ Fetch all blogs
     useEffect(() => {
         fetch("http://localhost:5000/blogs")
             .then((res) => res.json())
@@ -19,7 +18,6 @@ const ManageBlogs = () => {
             .catch((err) => console.error("Error fetching blogs:", err));
     }, []);
 
-    // ✅ Approve Blog
     const handleApprove = async (id) => {
         const confirm = await Swal.fire({
             title: "আপনি কি নিশ্চিত?",
@@ -28,21 +26,25 @@ const ManageBlogs = () => {
             showCancelButton: true,
             confirmButtonColor: "#16a34a",
             cancelButtonColor: "#d33",
-            confirmButtonText: "হ্যাঁ, অনুমোদন দিন!",
+            confirmButtonText: "হ্যাঁ",
             cancelButtonText: "বাতিল",
         });
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+                const res = await fetch(`http://localhost:5000/blogs/approve/${id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ status: "approved" }),
                 });
 
                 if (res.ok) {
-                    setBlogs(blogs.map((blog) => (blog._id === id ? { ...blog, status: "approved" } : blog)));
-                    Swal.fire("✅ অনুমোদিত!", "ব্লগটি সফলভাবে অনুমোদন করা হয়েছে।", "success");
+                    setBlogs(
+                        blogs.map((blog) =>
+                            blog._id === id ? { ...blog, status: "approved" } : blog
+                        )
+                    );
+                    Swal.fire("✅ অনুমোদিত!", "ব্লগটি অনুমোদিত হয়েছে।", "success");
                 } else {
                     Swal.fire("❌ ত্রুটি!", "অনুমোদনে সমস্যা হয়েছে।", "error");
                 }
@@ -53,26 +55,27 @@ const ManageBlogs = () => {
         }
     };
 
-    // ✅ Delete Blog
     const handleDelete = async (id) => {
         const confirm = await Swal.fire({
             title: "আপনি কি নিশ্চিত?",
-            text: "এই ব্লগটি স্থায়ীভাবে মুছে ফেলা হবে।",
+            text: "ব্লগটি স্থায়ীভাবে মুছে ফেলা হবে।",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#dc2626",
             cancelButtonColor: "#6b7280",
-            confirmButtonText: "হ্যাঁ, মুছে ফেলুন!",
+            confirmButtonText: "হ্যাঁ",
             cancelButtonText: "বাতিল",
         });
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/blogs/${id}`, { method: "DELETE" });
+                const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+                    method: "DELETE",
+                });
 
                 if (res.ok) {
                     setBlogs(blogs.filter((blog) => blog._id !== id));
-                    Swal.fire("🗑️ মুছে ফেলা হয়েছে!", "ব্লগটি সফলভাবে মুছে ফেলা হয়েছে।", "success");
+                    Swal.fire("🗑️ মুছে ফেলা হয়েছে!", "ব্লগটি মুছে ফেলা হয়েছে।", "success");
                 } else {
                     Swal.fire("❌ ত্রুটি!", "ব্লগটি মুছে ফেলা যায়নি।", "error");
                 }
@@ -95,9 +98,17 @@ const ManageBlogs = () => {
     return (
         <div className="max-w-6xl mx-auto py-8 px-4 md:pt-20">
             <Fade direction="up" triggerOnce>
-                <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
-                    📰 ব্লগ ম্যানেজ প্যানেল
-                </h1>
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="text-3xl font-bold text-green-700">
+                        📰 ব্লগ ম্যানেজ প্যানেল
+                    </h1>
+                    <Link
+                        to="/blog"
+                        className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md transition"
+                    >
+                        সব ব্লগ দেখুন <FaArrowRight />
+                    </Link>
+                </div>
             </Fade>
 
             {blogs.length === 0 ? (
@@ -136,7 +147,7 @@ const ManageBlogs = () => {
                                     <td className="px-6 py-4">
                                         {blog.status === "approved" ? (
                                             <span className="flex items-center gap-1 text-green-600 font-medium">
-                                                <FaCheckCircle /> অনুমোদিত
+                                                <FaCheck /> অনুমোদিত
                                             </span>
                                         ) : (
                                             <span className="flex items-center gap-1 text-yellow-600 font-medium">
@@ -144,20 +155,22 @@ const ManageBlogs = () => {
                                             </span>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 text-center">
+                                    <td className="px-6 py-4 text-center flex justify-center gap-2">
                                         {blog.status !== "approved" && (
                                             <button
                                                 onClick={() => handleApprove(blog._id)}
-                                                className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md mr-2 transition"
+                                                className="bg-green-500 hover:bg-green-600 text-white p-2 rounded-lg transition"
+                                                title="অনুমোদন"
                                             >
-                                                অনুমোদন
+                                                <FaCheck />
                                             </button>
                                         )}
                                         <button
                                             onClick={() => handleDelete(blog._id)}
-                                            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition"
+                                            className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition"
+                                            title="মুছে ফেলুন"
                                         >
-                                            মুছে ফেলুন
+                                            <FaTrash />
                                         </button>
                                     </td>
                                 </tr>
