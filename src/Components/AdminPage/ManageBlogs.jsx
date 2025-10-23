@@ -9,7 +9,7 @@ const ManageBlogs = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/blogs")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/blogs")
             .then((res) => res.json())
             .then((data) => {
                 setBlogs(data.reverse());
@@ -32,7 +32,7 @@ const ManageBlogs = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/blogs/approve/${id}`, {
+                const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/blogs/approve/${id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ status: "approved" }),
@@ -69,7 +69,7 @@ const ManageBlogs = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/blogs/${id}`, {
+                const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/blogs/${id}`, {
                     method: "DELETE",
                 });
 

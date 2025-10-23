@@ -8,7 +8,7 @@ const ManageReviews = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:5000/reviews")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/reviews")
             .then((res) => res.json())
             .then((data) => {
                 setReviews(data.reverse());
@@ -31,7 +31,7 @@ const ManageReviews = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/reviews/approve/${id}`, {
+                const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/reviews/approve/${id}`, {
                     method: "PATCH",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ status: "approved" }),
@@ -64,7 +64,7 @@ const ManageReviews = () => {
 
         if (confirm.isConfirmed) {
             try {
-                const res = await fetch(`http://localhost:5000/reviews/${id}`, { method: "DELETE" });
+                const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/reviews/${id}`, { method: "DELETE" });
                 if (res.ok) {
                     setReviews(reviews.filter((r) => r._id !== id));
                     Swal.fire("🗑️ মুছে ফেলা হয়েছে!", "রিভিউ মুছে ফেলা হয়েছে।", "success");

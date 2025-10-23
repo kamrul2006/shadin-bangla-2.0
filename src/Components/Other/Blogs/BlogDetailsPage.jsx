@@ -14,13 +14,13 @@ const BlogDetailsPage = () => {
     useEffect(() => {
         const fetchBlogData = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/Blogs/${id}`);
+                const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/Blogs/${id}`);
                 if (!res.ok) throw new Error("Failed to load blog");
                 const data = await res.json();
                 setBlog(data);
 
                 // ---------- Fetch related blogs ----------
-                const allRes = await fetch(`http://localhost:5000/Blogs`);
+                const allRes = await fetch(`https://shadin-bangla-2-0-server.vercel.app/Blogs`);
                 const allData = await allRes.json();
                 const related = allData.filter(
                     (b) => b.category === data.category && b._id !== data._id

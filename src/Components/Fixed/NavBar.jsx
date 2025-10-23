@@ -36,7 +36,7 @@ const NavBar = () => {
     // ✅ Fetch user role from backend
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users/${user.email}`)
+            fetch(`https://shadin-bangla-2-0-server.vercel.app/users/${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     if (data?.role === "admin" || data?.role === "Superadmin") {

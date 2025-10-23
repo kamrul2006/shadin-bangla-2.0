@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/Providers/AuthProvider";
 
 export const axiosSecurity = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://shadin-bangla-2-0-server.vercel.app',
     withCredentials: true
 })
 

@@ -16,7 +16,7 @@ const ManageShohid = () => {
 
     // -------------------Fetch Shohid Data
     useEffect(() => {
-        fetch("http://localhost:5000/Shohid")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/Shohid")
             .then((res) => res.json())
             .then((data) => {
                 setShohids(data.reverse());
@@ -43,7 +43,7 @@ const ManageShohid = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/Shohid", {
+            const res = await fetch("https://shadin-bangla-2-0-server.vercel.app/Shohid", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newShohid),
@@ -79,7 +79,7 @@ const ManageShohid = () => {
         if (!confirm.isConfirmed) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/Shohid/${id}`, { method: "DELETE" });
+            const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/Shohid/${id}`, { method: "DELETE" });
 
             if (res.ok) {
                 setShohids(shohids.filter((s) => s._id !== id));

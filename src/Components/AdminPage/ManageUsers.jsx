@@ -9,7 +9,7 @@ const ManageUsers = () => {
 
     // 🔹 Fetch all users
     useEffect(() => {
-        fetch("http://localhost:5000/Users")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/Users")
             .then((res) => res.json())
             .then((data) => {
                 setUsers(data);
@@ -34,7 +34,7 @@ const ManageUsers = () => {
         if (!confirm.isConfirmed) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/Users/admin/${id}`, {
+            const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/Users/admin/${id}`, {
                 method: "PATCH",
             });
 
@@ -66,7 +66,7 @@ const ManageUsers = () => {
         if (!confirm.isConfirmed) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/Users/remove-admin/${id}`, {
+            const res = await fetch(`https://shadin-bangla-2-0-server.vercel.app/Users/remove-admin/${id}`, {
                 method: "PATCH",
             });
 

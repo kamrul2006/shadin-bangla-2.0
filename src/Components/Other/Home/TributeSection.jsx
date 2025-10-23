@@ -12,7 +12,7 @@ const TributeSection = () => {
 
     // ----------------- Fetch Shohid info from API
     useEffect(() => {
-        fetch("http://localhost:5000/Shohid")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/Shohid")
             .then((res) => res.json())
             .then((data) => setShohids(data))
             .catch((err) => console.error("Shohid fetch error:", err));

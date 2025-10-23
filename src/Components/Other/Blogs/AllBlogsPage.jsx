@@ -14,7 +14,7 @@ const AllBlogsPage = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await fetch("http://localhost:5000/Blogs");
+                const response = await fetch("https://shadin-bangla-2-0-server.vercel.app/Blogs");
                 if (!response.ok) throw new Error("Failed to load blogs");
                 const data = await response.json();
                 setBlogs(data);

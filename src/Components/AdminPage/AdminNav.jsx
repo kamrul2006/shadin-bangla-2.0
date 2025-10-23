@@ -20,7 +20,7 @@ const ManageNavbar = () => {
     // ------------------ Check user role------------------------
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users`)
+            fetch(`https://shadin-bangla-2-0-server.vercel.app/users`)
                 .then((res) => res.json())
                 .then((data) => {
                     const currentUser = data.find((u) => u.email === user.email);

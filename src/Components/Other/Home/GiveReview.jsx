@@ -17,7 +17,7 @@ const GiveReview = () => {
 
     // Fetch reviews
     useEffect(() => {
-        fetch("http://localhost:5000/reviews")
+        fetch("https://shadin-bangla-2-0-server.vercel.app/reviews")
             .then((res) => res.json())
             .then((data) => setReviews(data.reverse()))
             .catch((err) => console.error(err));
@@ -67,7 +67,7 @@ const GiveReview = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/reviews", {
+            const res = await fetch("https://shadin-bangla-2-0-server.vercel.app/reviews", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(reviewData),
@@ -83,7 +83,7 @@ const GiveReview = () => {
                 setFormData({ message: "", rating: "" });
 
                 // Refresh reviews instantly
-                const updatedReviews = await fetch("http://localhost:5000/reviews").then((r) =>
+                const updatedReviews = await fetch("https://shadin-bangla-2-0-server.vercel.app/reviews").then((r) =>
                     r.json()
                 );
                 setReviews(updatedReviews.reverse());
