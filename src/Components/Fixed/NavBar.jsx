@@ -37,7 +37,7 @@ const NavBar = () => {
             fetch(`http://localhost:5000/users/${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data?.role === "admin") {
+                    if (data?.role === "admin" || data?.role === "Superadmin") {
                         setIsAdmin(true);
                     } else {
                         setIsAdmin(false);
@@ -90,7 +90,7 @@ const NavBar = () => {
                     {/* Center Nav Links */}
                     <div className="hidden md:flex space-x-6 mx-auto">
                         {navLinks.map((link, index) => (
-                            <Slide direction="down" delay={index * 100} triggerOnce key={link.to}>
+                            <Fade delay={index * 100} triggerOnce key={link.to}>
                                 <Link
                                     to={link.to}
                                     onClick={handleNavClick}
@@ -99,7 +99,7 @@ const NavBar = () => {
                                     {link.icon}
                                     {link.label}
                                 </Link>
-                            </Slide>
+                            </Fade>
                         ))}
                     </div>
 

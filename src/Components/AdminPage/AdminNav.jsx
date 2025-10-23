@@ -24,7 +24,7 @@ const ManageNavbar = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     const currentUser = data.find((u) => u.email === user.email);
-                    if (currentUser?.role === "admin") {
+                    if (currentUser?.role === "admin" || currentUser?.role === "Superadmin") {
                         setIsAdmin(true);
                     } else {
                         setIsAdmin(false);

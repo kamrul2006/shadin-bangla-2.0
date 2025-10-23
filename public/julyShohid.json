@@ -1,0 +1,38 @@
+[
+    {
+        "name": "আবু সাঈদ",
+        "image": "https://shohid.info/shohid/abu-sayed.jpg",
+        "date_of_death": "১৬ জুলাই ২০২৪",
+        "short_info": "রংপুরের বেগম রোকেয়া বিশ্ববিদ্যালয়ের শিক্ষার্থী। কোটা সংস্কার আন্দোলনের মিছিলে গুলিবিদ্ধ হয়ে শহীদ হন।"
+    },
+    {
+        "name": "মীর মুগ্ধ",
+        "image": "https://shohid.info/shohid/mir-mugdho.jpg",
+        "date_of_death": "১৮ জুলাই ২০২৪",
+        "short_info": "ঢাকা উত্তরা এলাকায় আহত শিক্ষার্থীদের সাহায্য করতে গিয়ে গুলিবিদ্ধ হয়ে শহীদ হন। ছিলেন একাদশ শ্রেণির ছাত্র।"
+    },
+    {
+        "name": "গোলাম নাফিজ",
+        "image": "https://shohid.info/shohid/golam-nafis.jpg",
+        "date_of_death": "৪ আগস্ট ২০২৪",
+        "short_info": "ফার্মগেট এলাকায় পুলিশের গুলিতে নিহত হন। তিনি ঢাকা কলেজের একজন মেধাবী ছাত্র ছিলেন।"
+    },
+    {
+        "name": "নাইমা সুলতানা",
+        "image": "https://shohid.info/shohid/naima-sultana.jpg",
+        "date_of_death": "২০ জুলাই ২০২৪",
+        "short_info": "১৬ বছর বয়সী কিশোরী, বাড়ির কাছাকাছি অবস্থান করার সময় আন্দোলনের গুলিবর্ষণে শহীদ হন।"
+    },
+    {
+        "name": "তানজিম আহমেদ",
+        "image": "https://media.newindianexpress.com/newindianexpress%2F2025-04-25%2Frvbhqy77%2FILLUSOCT01317-11-20172000241.jpg?w=768&auto=format%2Ccompress&fit=max",
+        "date_of_death": "১৮ জুলাই ২০২৪",
+        "short_info": "ঢাকা বিশ্ববিদ্যালয়ের সমাজবিজ্ঞান বিভাগের ছাত্র, শান্তিপূর্ণ মিছিলে অংশ নিয়ে গুলিতে প্রাণ হারান।"
+    },
+    {
+        "name": "রাফি ইসলাম",
+        "image": "/images/shohid/rafi_islam.jpg",
+        "date_of_death": "১৯ জুলাই ২০২৪",
+        "short_info": "রাজশাহী বিশ্ববিদ্যালয়ের শিক্ষার্থী, পুলিশি হামলায় আহত হয়ে চিকিৎসাধীন অবস্থায় মারা যান।"
+    }
+]

@@ -13,6 +13,7 @@ import SignupPage from "../Auth/Users/SignupPage";
 import AdminPageLayOut from "../Layouts/AdminPageLayOut";
 import ManageBlogs from "../Components/AdminPage/ManageBlogs";
 import ManageReviews from "../Components/AdminPage/ManageReviews";
+import ManageUsers from "../Components/AdminPage/ManageUsers";
 
 
 export const router = createBrowserRouter([
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
             {
                 path: '/manage/manageReviews',
                 element: <ManageReviews />
+            },
+            {
+                path: '/manage/manageUsers',
+                element: <ManageUsers />
             },
         ]
     }
