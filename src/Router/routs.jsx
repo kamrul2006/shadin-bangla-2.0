@@ -10,6 +10,8 @@ import WriteBlog from "../Components/Other/Blogs/WriteBlog";
 import BlogDetailsPage from "../Components/Other/Blogs/BlogDetailsPage";
 import LoginPage from "../Auth/Users/Loginpage";
 import SignupPage from "../Auth/Users/SignupPage";
+import AdminPageLayOut from "../Layouts/AdminPageLayOut";
+import ManageBlogs from "../Components/AdminPage/ManageBlogs";
 
 
 export const router = createBrowserRouter([
@@ -63,5 +65,19 @@ export const router = createBrowserRouter([
     {
         path: "/register",
         element: <SignupPage />
+    },
+    {
+        path: "/manage",
+        element: <AdminPageLayOut />,
+        children: [
+            {
+                path: '/manage',
+                element: <ManageBlogs />
+            },
+            {
+                path: '/manage/manageBlogs',
+                element: <ManageBlogs />
+            },
+        ]
     }
 ]);
