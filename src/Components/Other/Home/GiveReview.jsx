@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Swal from "sweetalert2";
 import Marquee from "react-fast-marquee";
 import { Fade } from "react-awesome-reveal";
-import { FaUserCircle, FaStar, FaQuoteLeft } from "react-icons/fa";
+import { FaUserCircle, FaQuoteLeft, FaStar } from "react-icons/fa";
+import { AuthContext } from "../../../Auth/Providers/AuthProvider";
 
 const GiveReview = () => {
+    const { user } = useContext(AuthContext);
+
     const [reviews, setReviews] = useState([]);
     const [formData, setFormData] = useState({
-        name: "",
         message: "",
         rating: "",
     });
     const [loading, setLoading] = useState(false);
 
-    // Fetch all reviews
+    // Fetch reviews
     useEffect(() => {
         fetch("http://localhost:5000/reviews")
             .then((res) => res.json())
@@ -28,6 +30,23 @@ const GiveReview = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!user) {
+            Swal.fire({
+                icon: "warning",
+                title: "🔒 লগইন করুন!",
+                text: "রিভিউ দেওয়ার জন্য প্রথমে লগইন করুন।",
+                confirmButtonColor: "#dc2626",
+                showCancelButton: true,
+                confirmButtonText: "লগইন করুন",
+                cancelButtonText: "বাতিল",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/login";
+                }
+            });
+            return;
+        }
+
         if (!formData.rating) {
             Swal.fire({
                 icon: "warning",
@@ -41,8 +60,10 @@ const GiveReview = () => {
         setLoading(true);
 
         const reviewData = {
+            name: user.displayName || "অজানা",
             ...formData,
             date: new Date().toLocaleDateString("bn-BD"),
+            status: "pending",
         };
 
         try {
@@ -59,10 +80,12 @@ const GiveReview = () => {
                     text: "আপনার রিভিউ সফলভাবে জমা হয়েছে।",
                     confirmButtonColor: "#dc2626",
                 });
-                setFormData({ name: "", message: "", rating: "" });
+                setFormData({ message: "", rating: "" });
 
                 // Refresh reviews instantly
-                const updatedReviews = await fetch("http://localhost:5000/reviews").then((r) => r.json());
+                const updatedReviews = await fetch("http://localhost:5000/reviews").then((r) =>
+                    r.json()
+                );
                 setReviews(updatedReviews.reverse());
             } else {
                 Swal.fire({
@@ -86,36 +109,21 @@ const GiveReview = () => {
     };
 
     return (
-        <section className="py-16 px-4 bg-gradient-to-br from-white via-rose-50 to-gray-100">
-            <div className="max-w-5xl mx-auto text-center mb-10">
+        <section className="py-12 px-4 bg-gradient-to-br from-white via-rose-50 to-gray-100 text-black">
+            <div className="max-w-4xl mx-auto text-center mb-8">
                 <Fade direction="up" triggerOnce>
-                    <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-3">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">
                         আপনার মতামত দিন 💬
                     </h2>
-                    <p className="text-gray-600 max-w-xl mx-auto">
-                        স্বাধীন বাংলা ২.০ সম্পর্কে আপনার মূল্যবান মতামত দিন এবং আমাদের জানাতে সাহায্য করুন কিভাবে আমরা আরও ভালো হতে পারি।
+                    <p className="text-gray-600 max-w-lg mx-auto">
+                        স্বাধীন বাংলা ২.০ সম্পর্কে আপনার মূল্যবান মতামত দিন এবং আমাদের আরও ভালো করতে সাহায্য করুন।
                     </p>
                 </Fade>
             </div>
 
             {/* Review Form */}
-            <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 sm:p-10 border border-gray-100 mb-12">
-                <form onSubmit={handleSubmit} className="space-y-6 text-left">
-                    <div>
-                        <label className="block text-gray-700 text-sm font-medium mb-1">
-                            নাম
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                            placeholder="আপনার নাম লিখুন"
-                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-400 outline-none transition duration-200"
-                        />
-                    </div>
-
+            <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 sm:p-8 border border-gray-100 mb-12">
+                <form onSubmit={handleSubmit} className="space-y-5 text-left">
                     <div>
                         <label className="block text-gray-700 text-sm font-medium mb-1">
                             আপনার বার্তা
@@ -127,28 +135,32 @@ const GiveReview = () => {
                             required
                             rows="4"
                             placeholder="আপনার মতামত লিখুন..."
-                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-400 outline-none resize-none transition duration-200"
+                            className="w-full border border-gray-200 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-400 outline-none resize-none transition duration-200"
                         ></textarea>
                     </div>
 
+                    {/* New Dropdown Rating */}
                     <div>
                         <label className="block text-gray-700 text-sm font-medium mb-1">
                             রেটিং দিন ⭐
                         </label>
-                        <select
-                            name="rating"
-                            value={formData.rating}
-                            onChange={handleChange}
-                            required
-                            className="w-full border border-gray-200 rounded-xl px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-400 outline-none transition duration-200"
-                        >
-                            <option value="">-- রেটিং নির্বাচন করুন --</option>
-                            <option value="5">⭐⭐⭐⭐⭐ (দারুণ)</option>
-                            <option value="4">⭐⭐⭐⭐ (ভালো)</option>
-                            <option value="3">⭐⭐⭐ (মোটামুটি)</option>
-                            <option value="2">⭐⭐ (খারাপ না)</option>
-                            <option value="1">⭐ (খারাপ)</option>
-                        </select>
+                        <div className="relative">
+                            <select
+                                name="rating"
+                                value={formData.rating}
+                                onChange={handleChange}
+                                required
+                                className="w-full border border-gray-200 rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-red-400 outline-none transition duration-200 appearance-none"
+                            >
+                                <option value="">-- রেটিং নির্বাচন করুন --</option>
+                                <option value="5">⭐⭐⭐⭐⭐ অসাধারণ! (দারুণ অভিজ্ঞতা)</option>
+                                <option value="4">⭐⭐⭐⭐ খুব ভালো (ছোটখাটো উন্নতির সুযোগ আছে)</option>
+                                <option value="3">⭐⭐⭐ মোটামুটি (আরও ভালো হতে পারে)</option>
+                                <option value="2">⭐⭐ তেমন ভালো না (কিছু সমস্যা আছে)</option>
+                                <option value="1">⭐ খারাপ (অভিজ্ঞতা সন্তোষজনক নয়)</option>
+                            </select>
+                            <FaStar className="absolute right-3 top-3 text-yellow-400 pointer-events-none" />
+                        </div>
                     </div>
 
                     <div className="text-center">
@@ -173,17 +185,19 @@ const GiveReview = () => {
                         {reviews.map((review, index) => (
                             <div
                                 key={index}
-                                className="mx-6 bg-gradient-to-br from-rose-50 to-white border border-gray-200 rounded-2xl shadow p-4 min-w-[250px] max-w-[300px]"
+                                className="mx-4 bg-gradient-to-br from-rose-50 to-white border border-gray-200 rounded-2xl shadow p-4 min-w-[230px] max-w-[280px]"
                             >
-                                <div className="flex items-center gap-3 mb-2">
+                                <div className="flex items-center gap-2 mb-1">
                                     <FaUserCircle className="text-red-500 text-2xl" />
-                                    <h3 className="font-semibold text-gray-800">{review.name}</h3>
+                                    <h3 className="font-semibold text-gray-800 text-sm">
+                                        {review.name}
+                                    </h3>
                                 </div>
-                                <p className="text-gray-600 text-sm mb-2">
+                                <p className="text-gray-600 text-sm mb-1">
                                     <FaQuoteLeft className="inline-block text-rose-400 mr-1" />
                                     {review.message}
                                 </p>
-                                <p className="text-yellow-500 text-lg">
+                                <p className="text-yellow-500 text-base">
                                     {"⭐".repeat(review.rating || 0)}
                                 </p>
                                 <p className="text-gray-400 text-xs">{review.date}</p>
