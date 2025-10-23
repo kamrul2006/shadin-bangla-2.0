@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { ImArrowUp2 } from "react-icons/im";
 
 const BackToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -30,21 +31,17 @@ const BackToTop = () => {
       {visible && (
         <button
           onClick={scrollToTop}
+          className="hover:bg-green-600 rounded-full fixed p-4 animate-bounce bg-green-500"
           style={{
-            position: "fixed",
             bottom: "50px",
             right: "50px",
-            padding: "10px 15px",
             fontSize: "16px",
-            borderRadius: "5px",
-            background: "#4caf50",
-            color: "#fff",
             border: "none",
             cursor: "pointer",
             boxShadow: "0px 4px 6px rgba(0,0,0,0.3)",
           }}
         >
-          ↑ Top
+          <ImArrowUp2 />
         </button>
       )}
     </div>
