@@ -7,7 +7,7 @@ const ManageUsers = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // 🔹 Fetch all users
+    // ------------------- Fetch all users
     useEffect(() => {
         fetch("https://shadin-bangla-2-0-server.vercel.app/Users")
             .then((res) => res.json())
@@ -18,7 +18,7 @@ const ManageUsers = () => {
             .catch((err) => console.error("Error fetching users:", err));
     }, []);
 
-    // 🔹 Make Admin
+    // --------------------- Make Admin
     const makeAdmin = async (id) => {
         const confirm = await Swal.fire({
             title: "আপনি কি নিশ্চিত?",
@@ -50,7 +50,7 @@ const ManageUsers = () => {
         }
     };
 
-    // 🔹 Remove Admin
+    // ----------------- Remove Admin
     const removeAdmin = async (id) => {
         const confirm = await Swal.fire({
             title: "আপনি কি নিশ্চিত?",
@@ -82,16 +82,16 @@ const ManageUsers = () => {
         }
     };
 
-    // 🔹 Loading State
+    // ----------------- Loading State
     if (loading)
         return (
-            <div className="flex flex-col items-center justify-center py-20 text-gray-600">
+            <div className="flex flex-col items-center justify-center py-20 pt-24 text-gray-600">
                 <FaSpinner className="animate-spin text-4xl mb-3" />
                 <p>ব্যবহারকারীর ডেটা লোড হচ্ছে...</p>
             </div>
         );
 
-    // 🔹 Render UI
+    // -------------------- Render UI
     return (
         <div className="max-w-6xl mx-auto py-8 px-4 md:pt-20 text-black">
             <Fade triggerOnce>

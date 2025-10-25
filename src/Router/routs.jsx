@@ -16,6 +16,7 @@ import ManageReviews from "../Components/AdminPage/ManageReviews";
 import ManageUsers from "../Components/AdminPage/ManageUsers";
 import ManageShohid from "../Components/AdminPage/ManageShohid";
 import PrivetRout from "../Auth/Privet/Privetrought";
+import CustomLoader from "../Components/Fixed/CustomLoader";
 
 
 export const router = createBrowserRouter([
@@ -27,6 +28,14 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <HomePageLayOut />
+            },
+            {
+                path: '/loading',
+                element: <CustomLoader />
+            },
+            {
+                path: '/error',
+                element: <ErrorPage />
             },
             // --------------blogs page------------------
             {

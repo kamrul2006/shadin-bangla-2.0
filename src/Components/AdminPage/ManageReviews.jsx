@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { FaCheck, FaTrash, FaClock } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
+import CustomLoader from "../Fixed/CustomLoader";
 
 const ManageReviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -78,8 +79,10 @@ const ManageReviews = () => {
         }
     };
 
-    if (loading) return <p className="text-center py-10">ডেটা লোড হচ্ছে...</p>;
+    if (loading) return (
+        <CustomLoader />
 
+    )
     return (
         <div className="max-w-6xl mx-auto py-8 px-4 md:pt-20">
             <Fade direction="up" triggerOnce>

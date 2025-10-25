@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { FaCalendarAlt, FaUserAlt, FaTag, FaArrowLeft } from "react-icons/fa";
+import CustomLoader from "../../Fixed/CustomLoader";
 
 const BlogDetailsPage = () => {
     const { id } = useParams();
@@ -38,9 +39,7 @@ const BlogDetailsPage = () => {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center min-h-screen text-gray-600 text-lg">
-                ⏳ ব্লগটি লোড হচ্ছে...
-            </div>
+            <CustomLoader />
         );
     }
 

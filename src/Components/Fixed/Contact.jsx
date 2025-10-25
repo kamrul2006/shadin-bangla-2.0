@@ -6,7 +6,7 @@ const Contact = () => {
     return (
         <section className="min-h-screen bg-gray-50 py-16 px-4 md:px-8 text-black">
             <div className="max-w-6xl mx-auto">
-                {/* Header */}
+                {/*------------------------ Header -----------------------*/}
                 <Fade triggerOnce>
                     <div className="text-center mb-12 md:mt-10">
                         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-3">
@@ -18,10 +18,10 @@ const Contact = () => {
                     </div>
                 </Fade>
 
-                {/* Main Content */}
+                {/*---------------------- Main Content---------------------- */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-                    {/* Contact Info */}
+                    {/*----------------------- Contact Info--------------------- */}
                     <Slide direction="left" triggerOnce>
                         <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300 flex flex-col justify-between h-full">
 
@@ -71,7 +71,7 @@ const Contact = () => {
                         </div>
                     </Slide>
 
-                    {/* Contact Form */}
+                    {/* ---------------------Contact Form-------------------- */}
                     <Fade triggerOnce>
                         <form
                             className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition duration-300 space-y-5 flex flex-col justify-between h-full"

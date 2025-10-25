@@ -74,7 +74,7 @@ const LoginPage = () => {
                 Swal.fire({
                     icon: "success",
                     title: "গুগল লগইন সফল!",
-                    text: "স্বাগতম শাদিন বাংলায়।",
+                    text: "স্বাগতম স্বাধীন বাংলা  ২.০ এ",
                     timer: 2000,
                     showConfirmButton: false,
                 });

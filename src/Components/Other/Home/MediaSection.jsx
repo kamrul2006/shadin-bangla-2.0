@@ -5,10 +5,10 @@ import { Link } from "react-router-dom"; // corrected import
 const mediaItems = [
     { id: 1, title: "ফিরে দেখা আন্দোলন", img: "/media/img1.JPG" },
     { id: 2, title: "পুলিশের হামলায় আহত", img: "/media/img2.jpg" },
-    { id: 3, title: "কুকুর লীগের হামলা", img: "/media/img3.jpg" },
+    { id: 3, title: "কুকুর লীগের হামলা", img: "/media/img12.jpg" },
     { id: 4, title: "সংগ্রামী শিক্ষার্থীরা", img: "/media/img4.jpg" },
-    { id: 5, title: "পুলিশি নির্যাতনের প্রতিবাদ", img: "/media/img5.jpg" },
-    { id: 6, title: "জুলাইয়ের শহীদদের শ্রদ্ধা", img: "/media/img6.jpg" },
+    { id: 5, title: "পুলিশি নির্যাতনের প্রতিবাদ", img: "/media/img7.jpg" },
+    { id: 6, title: "জুলাইয়ের শহীদদের শ্রদ্ধা", img: "/media/sohid0.jpg" },
 ];
 
 const MediaSection = () => {

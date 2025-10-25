@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 import { FaArrowRight, FaCalendarAlt, FaSearch } from "react-icons/fa";
+import CustomLoader from "../../Fixed/CustomLoader";
 
 const AllBlogsPage = () => {
     const [blogs, setBlogs] = useState([]);
@@ -85,9 +86,8 @@ const AllBlogsPage = () => {
 
                 {/*---------------- Loading & Error ----------------*/}
                 {loading && (
-                    <div className="text-center text-gray-500 mt-16 text-lg">
-                        ⏳ ব্লগগুলো লোড হচ্ছে...
-                    </div>
+                    <CustomLoader />
+
                 )}
 
                 {error && (

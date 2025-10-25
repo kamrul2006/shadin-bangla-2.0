@@ -9,7 +9,7 @@ const SohidList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
-    // ✅ Fetch Shohid data
+    // -------------------Fetch Shohid data
     useEffect(() => {
         fetch("https://shadin-bangla-2-0-server.vercel.app/Shohid")
             .then((res) => res.json())
@@ -20,7 +20,7 @@ const SohidList = () => {
             .catch((err) => console.error("Error fetching Shohid data:", err));
     }, []);
 
-    // ✅ Filter by name (case-insensitive)
+    // ---------------- Filter by name (case-insensitive)
     useEffect(() => {
         const results = shohids.filter((item) =>
             item.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,7 +29,7 @@ const SohidList = () => {
         setCurrentPage(1);
     }, [searchTerm, shohids]);
 
-    // ✅ Pagination logic
+    // -----------------Pagination logic
     const totalPages = Math.ceil(filteredShohids.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentItems = filteredShohids.slice(startIndex, startIndex + itemsPerPage);
@@ -86,15 +86,15 @@ const SohidList = () => {
                                         </div>
                                     </div>
 
-                                    {/* Card Content (visible on mobile) */}
+                                    {/* ---------------Card Content (visible on mobile) ---------------------*/}
                                     <div className="p-3 md:hidden">
                                         <h3 className="text-gray-900 font-semibold text-base truncate px-1">
                                             {item.name}
                                         </h3>
-                                        <p className="text-gray-600 text-xs ">
+                                        <p className="text-gray-600 text-xs h-[70px]">
                                             {item.short_info?.slice(0, 120)}...
                                         </p>
-                                        <p className="text-red-500 font-bold text-sm">
+                                        <p className="text-red-500 font-bold text-center text-sm border-t border-red-300 pt-2">
                                             মৃত্যুর তারিখ: {item.date_of_death}
                                         </p>
                                     </div>

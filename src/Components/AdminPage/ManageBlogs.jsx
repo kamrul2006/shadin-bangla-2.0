@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FaCheck, FaTrash, FaClock, FaArrowRight } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
+import CustomLoader from "../Fixed/CustomLoader";
 
 const ManageBlogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -88,10 +89,8 @@ const ManageBlogs = () => {
 
     if (loading) {
         return (
-            <div className="text-center py-10 text-gray-600">
-                <span className="loading loading-spinner text-success text-lg"></span>
-                <p>ডেটা লোড হচ্ছে...</p>
-            </div>
+            <CustomLoader />
+
         );
     }
 

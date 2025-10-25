@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { FaPlusCircle, FaTrashAlt, FaUsers } from "react-icons/fa";
+import CustomLoader from "../Fixed/CustomLoader";
 
 const ManageShohid = () => {
     const [shohids, setShohids] = useState([]);
@@ -95,10 +96,8 @@ const ManageShohid = () => {
 
     if (loading)
         return (
-            <div className="text-center py-10 text-gray-600">
-                <span className="loading loading-spinner text-success text-lg"></span>
-                <p>শহীদদের তথ্য লোড হচ্ছে...</p>
-            </div>
+            <CustomLoader />
+
         );
 
     return (
