@@ -7,9 +7,10 @@ const AdminPageLayOut = () => {
         <div>
             <ManageNavbar />
 
-            <Outlet />
+            <div className='pt-10'>
+                <Outlet />
 
-
+            </div>
 
         </div>
     )

@@ -172,7 +172,7 @@ const ManageShohid = () => {
             {shohids.length === 0 ? (
                 <p className="text-center text-gray-500">কোনো শহীদের তথ্য নেই।</p>
             ) : (
-                <div className="grid sm:grid-cols-2 md:grid-cols-6 gap-3">
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                     {shohids.map((s) => (
                         <div
                             key={s._id}
@@ -185,15 +185,16 @@ const ManageShohid = () => {
                             />
                             <div className="p-2">
 
-                                <div className="flex items-center justify-between mb-1">
-                                    <h3 className=" font-bold text-green-700">{s.name}</h3>
+                                <div className="flex items-center justify-between ">
+                                    <h3 className=" md:font-bold md:text-base text-sm  text-green-700 py-1">{s.name}</h3>
                                     <button
                                         onClick={() => handleDelete(s._id)}
-                                        className="mt-3 bg-red-500 hover:bg-red-600 text-white p-2  rounded-full text-sm flex items-center gap-1 transition"
+                                        className=" bg-white md:bg-red-500 hover:bg-red-600 md:p-2  md:text-white text-red-600 rounded-full text-sm flex items-center gap-1 transition"
                                     >
                                         <FaTrashAlt />
                                     </button>
                                 </div>
+
                                 <hr />
                                 <p className="text-sm text-gray-600 my-2">মৃত্যুঃ {s.date_of_death}</p>
                                 <hr />

@@ -58,6 +58,7 @@ const ManageNavbar = () => {
 
     return (
         <nav className="bg-gradient-to-r from-green-900 via-emerald-800 to-teal-900 backdrop-blur-lg shadow-lg fixed w-full z-50 border-b border-green-700/40">
+
             <div className="max-w-7xl mx-auto px-5 py-3 flex justify-between items-center">
                 {/* -------- Left: Dashboard Title -------- */}
                 <Fade direction="left" triggerOnce>

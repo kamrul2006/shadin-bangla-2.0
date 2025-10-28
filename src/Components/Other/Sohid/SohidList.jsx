@@ -91,7 +91,7 @@ const SohidList = () => {
                                         <h3 className="text-gray-900 font-semibold text-base truncate px-1">
                                             {item.name}
                                         </h3>
-                                        <p className="text-gray-600 text-xs h-[70px]">
+                                        <p className="text-gray-600 text-xs h-[70px] overflow-hidden">
                                             {item.short_info?.slice(0, 120)}...
                                         </p>
                                         <p className="text-red-500 font-bold text-center text-sm border-t border-red-300 pt-2">

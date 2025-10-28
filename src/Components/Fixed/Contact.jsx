@@ -63,7 +63,7 @@ const Contact = () => {
                                 </a>
                             </div>
 
-                            <div>
+                            <div className="mt-5">
                                 <img src="/media/1d1.jpeg" alt="1dfa" className="w-full h-[150px] object-cover rounded-2xl border-2 border-white ring-2 ring-red-500" />
                             </div>
 

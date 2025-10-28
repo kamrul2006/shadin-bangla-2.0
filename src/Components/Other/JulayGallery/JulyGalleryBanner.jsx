@@ -17,7 +17,7 @@ const JulyGalleryBanner = () => {
                 {/* --------- Left Content --------- */}
                 <div className="text-center md:text-left text-white space-y-6">
                     <Zoom triggerOnce>
-                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold drop-shadow-lg">
+                        <h1 className="text-4xl pt-10 md:pt-0 md:text-6xl font-extrabold drop-shadow-lg">
                             জুলাই <span className="text-red-400">গ্যালারি</span>
                         </h1>
                     </Zoom>

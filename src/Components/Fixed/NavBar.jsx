@@ -33,7 +33,7 @@ const NavBar = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
-    // ✅ Fetch user role from backend
+    // ------------- Fetch user role from backend
     useEffect(() => {
         if (user?.email) {
             fetch(`https://shadin-bangla-2-0-server.vercel.app/users/${user.email}`)
@@ -72,9 +72,10 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="bg-gradient-to-r from-green-600/80 via-emerald-600/80 to-teal-700/80 shadow-md fixed w-full z-30 backdrop-blur-md">
+        <nav className="bg-gradient-to-r from-green-600/80 via-emerald-600/80 to-teal-700/80 shadow-md fixed w-full z-30 backdrop-blur">
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between items-center h-16">
+                <div className="flex justify-between items-center md:h-16 h-12">
                     {/* Logo */}
                     <Fade direction="left" triggerOnce>
                         <Link
@@ -82,7 +83,8 @@ const NavBar = () => {
                             onClick={handleNavClick}
                             className="flex items-center gap-2 hover:opacity-80 transition"
                         >
-                            <img className="w-10 drop-shadow-md" src="/icons/g.png" alt="২.০" />
+                            <img className="md:w-10 w-7 drop-shadow drop-shadow-green-300" src="/icons/g.png" alt="২.০" />
+
                             <h1 className="hidden md:block text-xl font-extrabold text-white tracking-wide">
                                 স্বাধীন বাংলা ২.০
                             </h1>
@@ -169,9 +171,9 @@ const NavBar = () => {
                     <div className="md:hidden">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="text-white focus:outline-none"
+                            className="text-white focus:outline-none mt-2"
                         >
-                            {isOpen ? <FiX className="w-7 h-7" /> : <FiMenu className="w-7 h-7" />}
+                            {isOpen ? <FiX className="w-5 h-5" /> : <FiMenu className="w-5 h-5" />}
                         </button>
                     </div>
                 </div>
@@ -179,7 +181,7 @@ const NavBar = () => {
 
             {/* Mobile Dropdown */}
             {isOpen && (
-                <Slide direction="down" duration={400}>
+                <Slide direction="right" duration={400}>
                     <div className="md:hidden bg-white border-t shadow-md">
                         <div className="flex flex-col space-y-3 px-4 py-4">
                             {navLinks.map((link) => (

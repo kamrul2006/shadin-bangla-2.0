@@ -8,8 +8,9 @@ const RootLayots = () => {
         <div>
             <NavBar />
 
-            <Outlet />
-
+            <div className='pt-10'>
+                <Outlet />
+            </div>
             <Footer />
 
         </div>
