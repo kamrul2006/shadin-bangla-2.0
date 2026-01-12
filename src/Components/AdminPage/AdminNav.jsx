@@ -34,12 +34,12 @@ const ManageNavbar = () => {
                         setIsAdmin(true);
                     } else {
                         setIsAdmin(false);
-                        navigate("/"); // Redirect non-admins
+                        navigate("/"); // ---------------Redirect non-admins
                     }
                 })
                 .catch((err) => console.error("User fetch error:", err));
         } else {
-            navigate("/"); // Redirect if not logged in
+            navigate("/"); // ------------------Redirect if not logged in
         }
     }, [user, navigate]);
 
@@ -48,6 +48,7 @@ const ManageNavbar = () => {
         navigate("/");
     };
 
+    //------------------admin links----------------
     const adminLinks = [
         { to: "/", label: "হোম", icon: <FiHome /> },
         { to: "/manage/manageBlogs", label: "ব্লগ ম্যানেজ", icon: <FiFileText /> },
@@ -87,7 +88,7 @@ const ManageNavbar = () => {
 
                 {/* -------- Right: User + Logout + Mobile Menu -------- */}
                 <div className="flex items-center gap-3 text-white">
-                    {/* User Avatar */}
+                    {/* --------------User Avatar -----------------*/}
                     {user && (
                         <div
                             className="bg-green-700 text-white w-8 h-8 flex items-center justify-center rounded-full font-semibold border border-yellow-300/60"
@@ -95,11 +96,11 @@ const ManageNavbar = () => {
                         >
                             {user.displayName
                                 ? user.displayName.charAt(0).toUpperCase()
-                                : "U"}
+                                : "🔑"}
                         </div>
                     )}
 
-                    {/* Logout Button */}
+                    {/*------------------ Logout Button-----------------*/}
                     {user && (
                         <button
                             onClick={handleSignOut}
@@ -109,7 +110,7 @@ const ManageNavbar = () => {
                         </button>
                     )}
 
-                    {/* Mobile Menu Toggle */}
+                    {/* --------------------Mobile Menu Toggle ----------------*/}
                     <button
                         className="md:hidden text-2xl text-yellow-300 focus:outline-none"
                         onClick={() => setMenuOpen(!menuOpen)}
@@ -139,7 +140,7 @@ const ManageNavbar = () => {
                             </Link>
                         ))}
 
-                        {/* Logout (Mobile) */}
+                        {/*-------------------Logout (Mobile)-------------------- */}
                         {user && (
                             <button
                                 onClick={() => {
