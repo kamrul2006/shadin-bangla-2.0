@@ -6,6 +6,7 @@ import CustomLoader from "../../Fixed/CustomLoader";
 
 const AllBlogsPage = () => {
     const [blogs, setBlogs] = useState([]);
+
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [loading, setLoading] = useState(true);
@@ -24,9 +25,12 @@ const AllBlogsPage = () => {
 
                 const data = await response.json();
 
-                // Show latest blogs first (last data first)
-                const reversedData = [...data].reverse();
-                setBlogs(reversedData);
+                // Only approved blogs + latest first
+                const approvedBlogs = data
+                    .filter(blog => blog.status === "approved")
+                    .reverse();
+
+                setBlogs(approvedBlogs);
             } catch (err) {
                 console.error("Error loading blogs:", err);
                 setError("ব্লগ লোড করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।");
@@ -38,7 +42,10 @@ const AllBlogsPage = () => {
         fetchBlogs();
     }, []);
 
+
     const categories = ["all", ...new Set(blogs.map((blog) => blog.category))];
+
+
 
     // ----------- Filter by search and category------------
     const filteredBlogs = blogs.filter((blog) => {
