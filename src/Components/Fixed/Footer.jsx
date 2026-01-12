@@ -61,7 +61,7 @@ const Footer = () => {
 
                 {/* ---------------- Copyright / Developer ---------------- */}
                 <div className="flex  justify-around">
-                    <p className="mb-2">
+                    <p className="mb-2 text-xs md:text-sm ">
                         © {new Date().getFullYear()} স্বাধীন বাংলা ২.০. All rights reserved.
                     </p>
 
