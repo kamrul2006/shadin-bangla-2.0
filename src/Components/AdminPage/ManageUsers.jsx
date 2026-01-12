@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { FaUserShield, FaUserMinus, FaSpinner } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
+import CustomLoader from "../Fixed/CustomLoader";
 
 const ManageUsers = () => {
     const [users, setUsers] = useState([]);
@@ -85,10 +86,7 @@ const ManageUsers = () => {
     // ----------------- Loading State
     if (loading)
         return (
-            <div className="flex flex-col items-center justify-center py-20 pt-24 text-gray-600">
-                <FaSpinner className="animate-spin text-4xl mb-3" />
-                <p>ব্যবহারকারীর ডেটা লোড হচ্ছে...</p>
-            </div>
+            <CustomLoader />
         );
 
     // -------------------- Render UI
