@@ -17,8 +17,13 @@ const AllBlogsPage = () => {
             try {
                 const response = await fetch("https://shadin-bangla-2-0-server.vercel.app/Blogs");
                 if (!response.ok) throw new Error("Failed to load blogs");
+
                 const data = await response.json();
-                setBlogs(data);
+
+                // Show latest blogs first (last data comes first)
+                const reversedData = data.reverse();
+                setBlogs(reversedData);
+
             } catch (err) {
                 console.error("Error loading blogs:", err);
                 setError("ব্লগ লোড করতে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।");
