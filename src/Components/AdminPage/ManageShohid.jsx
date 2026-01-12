@@ -117,12 +117,13 @@ const ManageShohid = () => {
             </Fade>
 
             {/* ---------------- Add Form ---------------- */}
-            <div className="bg-white shadow-md rounded-lg p-6 mb-8 border border-gray-100">
+            <div className="bg-white shadow-md rounded-lg p-3 md:p-6 mb-8 border border-gray-100">
+
                 <h2 className="text-xl font-semibold text-green-700 mb-4 flex items-center gap-2">
                     <FaPlusCircle /> নতুন শহীদ যুক্ত করুন
                 </h2>
 
-                <form onSubmit={handleAddShohid} className="grid md:grid-cols-2 gap-4">
+                <form onSubmit={handleAddShohid} className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
                     <input
                         type="text"
                         name="name"
@@ -172,7 +173,7 @@ const ManageShohid = () => {
             {shohids.length === 0 ? (
                 <p className="text-center text-gray-500">কোনো শহীদের তথ্য নেই।</p>
             ) : (
-                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5">
                     {shohids.map((s) => (
                         <div
                             key={s._id}
@@ -181,7 +182,7 @@ const ManageShohid = () => {
                             <img
                                 src={s.image}
                                 alt={s.name}
-                                className="w-full h-30 object-cover"
+                                className="w-full h-40 md:h-48 object-cover"
                             />
                             <div className="p-2">
 
@@ -195,10 +196,9 @@ const ManageShohid = () => {
                                     </button>
                                 </div>
 
-                                <hr />
-                                <p className="text-sm text-gray-600 my-2">মৃত্যুঃ {s.date_of_death}</p>
-                                <hr />
-                                <p className="text-gray-700 text-xs text-justify mt-2">{s.short_info?.slice(0, 50)}...</p>
+                                <p className="text-sm text-red-900 py-1 border-y  rounded pl-2 shadow-gray-300 shadow-md">মৃত্যুঃ {s.date_of_death}</p>
+
+                                <p className="text-gray-700 text-xs text-justify mt-2">{s.short_info?.slice(0, 150)}...</p>
 
                             </div>
                         </div>
