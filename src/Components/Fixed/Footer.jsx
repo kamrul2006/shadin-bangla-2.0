@@ -64,7 +64,8 @@ const Footer = () => {
                     <p className="mb-2">
                         © {new Date().getFullYear()} স্বাধীন বাংলা ২.০. All rights reserved.
                     </p>
-                    <p className="text-sm text-gray-400">
+
+                    <p className="text-xs md:text-sm text-gray-400">
                         Developed by <span className="text-yellow-400 font-semibold font-sans hover:text-amber-200 hover:border-b border-amber-400 transition-all">
                             <a href="https://kiapurba.vercel.app">
                                 Kamrul Islam Apurba</a>
